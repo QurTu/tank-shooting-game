@@ -15,7 +15,6 @@ class Game {
         this.renderEarth();
         this.renderWalls();
     }
-
 renderCanvas() {
     this.canvas = new Canvas();
     this.c = this.canvas.c;
@@ -28,7 +27,7 @@ renderEarth() {
   
 }
 renderWalls() {
-    this.Walls = new Walls(this.level);
+    this.Walls = new Walls(this.level, this);
 }
     
 }

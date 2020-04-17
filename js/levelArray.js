@@ -1,7 +1,23 @@
- let level1 = [
+
+let level1 = [
      {
-         x: 20,
-         y: 20,
-     }
+         x: 48,
+         y: 48,
+     },
+     {
+        x: 60,
+        y: 48,
+    },
+    {
+        x: 76,
+        y: 48,
+    }
  ]
- export default level1;
+
+  let level2 = [
+    {
+        x: 30,
+        y: 20,
+    }
+]
+export default level1;

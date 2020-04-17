@@ -4,8 +4,8 @@
         this.ctx = canvasCtx;
         this.widthCanvas = widthCanvas;
          this.heightCanvas =  heightCanvas;
-         this.EarthHeight = 48;
-         this.EarthWidth = 48;
+         this.EarthHeight = 40;
+         this.EarthWidth = 40;
          this.x = 0;
          this.y =0;
          this.img = document.querySelector('img');
@@ -14,8 +14,6 @@
     }
     renderEarth() {
         this.ctx.drawImage(this.img, this.x , this.y, this.EarthHeight, this.EarthWidth);
-        console.log ('did my work')
-        console.log (this.img);
         this.ctx.fillStyle = this.pat;
         this.ctx.fill();
     }
