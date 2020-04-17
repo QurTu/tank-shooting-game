@@ -1,7 +1,7 @@
 class Canvas {
     constructor() {
-        this.width = 800;
-        this.height = 640;
+        this.width = 816;
+        this.height = 624;
         this.c = null ;
         this.ctx = null;
         this.renderCanvas();

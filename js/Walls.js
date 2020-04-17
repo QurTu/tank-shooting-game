@@ -1,4 +1,4 @@
-import  level1 from'./levelArray.js';
+import  level1 from'./levels/level1.js';
 export default class Walls {
    constructor(gameLevel, game){
        this.wallArray = eval(`level${1}`);
