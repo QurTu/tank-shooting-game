@@ -4,10 +4,6 @@ export default class Player {
     constructor(playerNumber , game){
          this.playerNumber = playerNumber;
          this.game = game;
-
-         
-        
-
          this.playerHeight = 48;
          this.playerWidth = 48;
          this.Player1x = 0;
@@ -16,7 +12,7 @@ export default class Player {
          this.Player2y =0;
          this.lastplayer1Position = {};
          this.lastplayer2Position = {}; 
-
+         this.pressedKeys = [];
          this.c  = game.c;
          this.ctx = game.ctx;
          this.img1 = document.querySelector(".player1");
@@ -25,27 +21,67 @@ export default class Player {
           this.spawnPlayer2();
           this.eventliseners();
           
-          
-          
-   
-          
 
 
-  
+
     }
 
-    PlayerColision() {
-        let side = 0;
+    //player1 collsion with walls
+    Player1ColisionWithWalls() {
+        let collision= [];
+        for(let i =0; i < this.game.walls.wallArray.length; i++) {
+                let dx=(this.Player1x + 48 /2)-(this.game.walls.wallArray[i].x + 16/2);
+                let dy=(this.Player1y + 48 /2) -  (this.game.walls.wallArray[i].y + 16 /2);
+                let width=(48 + 16) /  2;
+                let height=(48 + 16) / 2;
+                let crossWidth=width*dy;
+                let crossHeight=height*dx;
+                if(Math.abs(dx)<=width && Math.abs(dy)<=height){
+                    if(crossWidth>crossHeight){
+                        collision.push((crossWidth>(-crossHeight))?1:2);
+                    }else{
+                        collision.push((crossWidth>-(crossHeight))?3: 4);
+                    }  
+            }
+}
 
+return collision;
+    }
         
-            let dx=(this.Player1x + 48 /2)-(this.Player2x + 48 /2);
+
+    
+
+    // player1 to player2  collsion
+    PlayerColision() {
+            let dx=(this.Player1x + 48 /2)-(this.Player2x + 48/2);
             let dy=(this.Player1y + 48 /2) -  (this.Player2y + 48 /2);
             let width=(48 + 48) /  2;
             let height=(48 + 48) / 2;
             let crossWidth=width*dy;
             let crossHeight=height*dx;
             let collision= 0;
-            //
+            
+            if(Math.abs(dx)<=width && Math.abs(dy)<=height){
+                if(crossWidth>crossHeight){
+                    collision=(crossWidth>(-crossHeight))?1:2;
+                }else{
+                    collision=(crossWidth>-(crossHeight))?3: 4;
+                }
+            }
+            return(collision);  
+        } 
+    
+
+   // player2 to player1  collsion
+    PlayerColision2() {
+            let dx=(this.Player2x + 48 /2)-(this.Player1x + 48 /2);
+            let dy=(this.Player2y + 48 /2) -  (this.Player1y + 48 /2);
+            let width=(48 + 48) /  2;
+            let height=(48 + 48) / 2;
+            let crossWidth=width*dy;
+            let crossHeight=height*dx;
+            let collision= 0;
+            
             if(Math.abs(dx)<=width && Math.abs(dy)<=height){
                 if(crossWidth>crossHeight){
                     collision=(crossWidth>(-crossHeight))?1:2;
@@ -54,149 +90,132 @@ export default class Player {
                 }
             }
             return(collision);
-        
+    }
          
+    // }
+     // key unpressed.
+    keyUp(e) {
+        this.pressedKeys[e.keyCode] = false;
     }
-     
     
+    // movment and collision render
    update(e) {
-       console.log(e.keyCode);
-      // console.log(this.game.walls);
-       if ( e.keyCode === 87) {
-        this.Player1y -= 5; 
-        console.log(this.PlayerColision());
-        if(this.PlayerColision() === 1) {
-            this.Player1y += 5; 
-        }
-           if (this.Player1y < 0) {
-            this.Player1y += 5;
-           }
-           this.updateDraw();
-       }
+       this.pressedKeys[e.keyCode] = true;
+       
+    
+       if (this.pressedKeys[87]) {
+           
+            this.Player1y -= 6; 
+           
+            if(this.PlayerColision() === 1 || this.Player1ColisionWithWalls().includes(1) ) {
+                this.Player1y += 6; }
+            if (this.Player1y < 0) {
+                 this.Player1y += 6; }
+        this.updateDraw();}
 
-
-
-
-
-
-       if ( e.keyCode === 83) {
-        this.Player1y += 5;
-        console.log(this.PlayerColision());
-        if(this.PlayerColision() === 4) {
-            this.Player1y -= 5;
-        }
+       if (this.pressedKeys[83]) {
+        
+        this.Player1y += 6;
+        console.log(this.Player1ColisionWithWalls());
+        if(this.PlayerColision() === 4  || this.Player1ColisionWithWalls().includes(4) ) {
+            this.Player1y -= 6;}
         if (this.Player1y > this.game.heightCanvas - this.playerHeight) {
-            this.Player1y -= 5;
-           }
-        this.updateDraw();
-    }
+            this.Player1y -= 6;}
+        this.updateDraw();}
 
-
-    if ( e.keyCode === 68) {
-        this.Player1x += 5;
-        console.log(this.PlayerColision());
-        if(this.PlayerColision() === 2) {
-            this.Player1x -= 5;
-        }
+    if ( this.pressedKeys[68]) {
+        
+        this.Player1x += 6; 
+        console.log(this.Player1ColisionWithWalls());
+        if(this.PlayerColision() === 2 || this.Player1ColisionWithWalls().includes(2)) {
+            this.Player1x -= 6;}
         if(this.Player1x > this.game.widthCanvas - this.playerWidth) {
-            this.Player1x = this.game.widthCanvas - this.playerWidth;
-        }
-        this.updateDraw();
-    }
+            this.Player1x = this.game.widthCanvas - this.playerWidth;}
+        this.updateDraw();}
 
+    if ( this.pressedKeys[65]) {
 
-    if ( e.keyCode === 65) {
-        this.Player1x -= 5;
-        console.log(this.PlayerColision());
-        if(this.PlayerColision() === 3) {
-            this.Player1x += 5;
-        }
-
+        this.Player1x -= 6; 
+        console.log(this.Player1ColisionWithWalls());
+        if(this.PlayerColision() === 3 || this.Player1ColisionWithWalls().includes(3) ) {
+            this.Player1x += 6; }
         if(this.Player1x < 0 ) {
-            this.Player1x = 0;
-        }
-        this.updateDraw();
-    }
+            this.Player1x = 0;}
+        this.updateDraw();}
 
 // player 2 controls
 
-    if ( e.keyCode === 104) {
-        this.Player2y -= 5;
-        if (this.Player2y < 0) {
-         this.Player2y += 5;
-        }
+    if ( this.pressedKeys[104]) {
+        this.Player2y -= 6;
+            if(this.PlayerColision2() === 1) {
+                this.Player2y += 6; }
+            if (this.Player2y < 0) {
+            this.Player2y += 6;}
+        this.updateDraw(); }
+
+    if ( this.pressedKeys[101]) {
+     this.Player2y += 6;
+        if(this.PlayerColision2() === 4) {
+            this.Player2y -= 6;}
+        if (this.Player2y > this.game.heightCanvas - this.playerHeight) {
+            this.Player2y -= 6;}
         this.updateDraw();
     }
-    if ( e.keyCode === 101) {
-     this.Player2y += 5;
-     if (this.Player2y > this.game.heightCanvas - this.playerHeight) {
-         this.Player2y -= 5;
-        }
-     this.updateDraw();
- }
- if ( e.keyCode === 102) {
-     this.Player2x += 5;
-     if(this.Player2x > this.game.widthCanvas - this.playerWidth) {
-         this.Player2x = this.game.widthCanvas - this.playerWidth;
-     };
-     this.updateDraw();
- }
- if ( e.keyCode === 100) {
-     this.Player2x -= 5;
+
+ if ( this.pressedKeys[102]) {
+     this.Player2x += 6;
+     if(this.PlayerColision2() === 2) {
+        this.Player2x -= 6;}
+    if(this.Player2x > this.game.widthCanvas - this.playerWidth) {
+         this.Player2x = this.game.widthCanvas - this.playerWidth;};
+     this.updateDraw();}
+
+ if ( this.pressedKeys[100]) {
+     this.Player2x -= 6;
+     if(this.PlayerColision2() === 3) {
+        this.Player2x += 6;}
      if(this.Player2x < 0 ) {
-         this.Player2x = 0;
-     };
-     this.updateDraw();
- }
-        
-    }
+         this.Player2x = 0;};
+     this.updateDraw();}
 
+}
 
+   // player controls eventLiseners
     eventliseners() {
-        window.addEventListener('keydown' , (e)  => this.update(e)
-
-        )
+        window.addEventListener('keydown' , (e)  => this.update(e), false);
+        window.addEventListener('keyup', (e) => this.keyUp(e), false);
     }
-
+   // spawing player1
     spawnPlayer1() {
             this.player1Place();
             this.img1.onload = this.ctx.drawImage( this.img1 , this.Player1x , this.Player1y, this.playerHeight, this.playerWidth);
-            this.lastplayer1Position = { x:this.Player1x, y:this.Player1y };
-            
-           
-            
-    }
+            this.lastplayer1Position = { x:this.Player1x, y:this.Player1y };}
     player1Place() {
-        this.Player1x = this.game.widthCanvas / 2   - this.playerWidth * 2 -8 ;
-        this.Player1y = this.game.heightCanvas - this.playerHeight ;
-        
-    }
+        this.Player1x = 48 *6 ;
+        this.Player1y = this.game.heightCanvas - this.playerHeight ;}
 
+        //spawing player2
     spawnPlayer2() {
         this.player2Place();
         this.img2.onload = this.ctx.drawImage( this.img2 , this.Player2x , this.Player2y, this.playerHeight, this.playerWidth);
-        this.lastplayer2Position = { x:this.Player2x, y:this.Player2y }; 
-    }
+        this.lastplayer2Position = { x:this.Player2x, y:this.Player2y }; }
     player2Place() {
     this.Player2x = this.game.widthCanvas / 2   + this.playerWidth  +8 ;
     this.Player2y = this.game.heightCanvas - this.playerHeight ;
     }
 
 
-
+  // players canvas update after moving
 updateDraw() {
-    
-
+    //player1
     this.ctx.clearRect(this.lastplayer1Position.x, this.lastplayer1Position.y, this.playerWidth, this.playerWidth);
     this.img1.onload = this.ctx.drawImage( this.img1 , this.Player1x , this.Player1y, this.playerHeight, this.playerWidth);
     this.lastplayer1Position = { x:this.Player1x, y:this.Player1y };  
-
+    //player2
     this.ctx.clearRect(this.lastplayer2Position.x, this.lastplayer2Position.y, this.playerWidth, this.playerWidth);
     this.img2.onload = this.ctx.drawImage( this.img2 , this.Player2x , this.Player2y, this.playerHeight, this.playerWidth);
-    this.lastplayer2Position = { x:this.Player2x, y:this.Player2y };
-    
+    this.lastplayer2Position = { x:this.Player2x, y:this.Player2y };   
 }
-
 
 
 
