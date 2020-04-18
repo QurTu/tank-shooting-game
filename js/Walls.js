@@ -8,8 +8,7 @@ export default class Walls {
        this.ctx = game.ctx;
        this.widthCanvas = game.widthCanvas;
          this.heightCanvas =  game.heightCanvas;
-         this.img = new Image();
-         this.img.src = '../img/brcik.png'
+         this.img = document.querySelector('.brick');
          this.wallsFull = [];
          this.earthWallArray = [];
          this.earthWallArrayBuilding();
