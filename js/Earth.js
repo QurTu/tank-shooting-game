@@ -14,8 +14,7 @@
     }
     renderEarth() {
         this.ctx.drawImage(this.img, this.x , this.y, this.EarthHeight, this.EarthWidth);
-        this.ctx.fillStyle = this.pat;
-        this.ctx.fill();
+       
     }
     EarthPlace(){
         this.x = this.widthCanvas / 2 - this.EarthWidth / 2 ;

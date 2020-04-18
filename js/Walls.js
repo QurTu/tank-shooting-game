@@ -1,7 +1,7 @@
 import  level1 from'./levels/level1.js';
 export default class Walls {
    constructor(gameLevel, game){
-       this.wallArray = eval(`level${1}`);
+       this.wallArray = eval(`level${gameLevel}`);
        this.wallH = 16;
        this.wallW = 16;
        this.c  = game.c;
