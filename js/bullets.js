@@ -15,8 +15,6 @@ export default class Bullet {
         
     }
     bulletRender(){
-        console.log("veikiu");
-        console.log(this.player);
           this.bulletinitPlace() ;
         this.player.ctx.fillStyle = "#FF0000";
         this.player.ctx.fillRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
@@ -26,45 +24,55 @@ export default class Bullet {
 
     bulletinitPlace() {
         if( this.dx > 0 && this.dy === 0) {
-            this.bulletX +=  48;
+            this.bulletX +=  48 + this.buletsize;
             this.bulletY +=  10;
         }
         if( this.dx < 0 && this.dy === 0) {
             this.bulletY +=  10;
+            this.bulletX +=  - this.buletsize - 6;
+
         }
         if( this.dx === 0 && this.dy > 0) {
-            this.bulletX +=  10;
-            this.bulletY +=  24;
+            this.bulletX +=  24;
+            this.bulletY +=  48 + this.buletsize;
         }
         if( this.dx === 0 && this.dy < 0) {
             this.bulletX +=  24;
-            this.bulletY -=  8;
+            this.bulletY -=  14;
         }
 
     }
 
-    // player1andBulletsCollision() {
-    //     for(let i = 0 ; i < this.player.bulletArr.length; i++ ) {
-    //         console.log(this.player.bulletArr);
-    //             console.log('veikiu, bet neradau')
-    //         if (this.player.Player1x < this.player.bulletArr[i].bulletX + this.buletsize &&
-    //             this.player.Player1x + 48 > this.player.bulletArr[i].bulletX &&
-    //             this.player.Player1y < this.player.bulletArr[i].bulletY + this.buletsize &&
-    //             this.player.Player1xy + 48 > this.player.bulletArr[i].bulletY) {
-    //                 console.log('radau');
-    //                 this.player.bulletArr[i].DeadorAlive = 0;
-    //                 this.player.ctx.clearRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
-    //                 this.player.bulletArr.splice(this.player.bulletArr[i]  , 1);
-    //          }
-    //     }
-    //   }
+    player1andBulletsCollision() {
+        for(let i = 0 ; i < this.player.bulletArr.length; i++ ) {
+            if (this.player.Player1x < this.player.bulletArr[i].bulletX + this.buletsize &&
+                this.player.Player1x + 48 > this.player.bulletArr[i].bulletX &&
+                this.player.Player1y < this.player.bulletArr[i].bulletY + this.buletsize &&
+                this.player.Player1y + 48 > this.player.bulletArr[i].bulletY) {
+                    this.player.bulletArr[i].DeadorAlive = 0;
+                    this.player.ctx.clearRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
+                    this.player.bulletArr.splice(this.player.bulletArr[i]  , 1);
+             }
+        }
+      }
+
+      player2andBulletsCollision() {
+        for(let i = 0 ; i < this.player.bulletArr.length; i++ ) {
+            if (this.player.Player2x < this.player.bulletArr[i].bulletX + this.buletsize &&
+                this.player.Player2x + 48 > this.player.bulletArr[i].bulletX &&
+                this.player.Player2y < this.player.bulletArr[i].bulletY + this.buletsize &&
+                this.player.Player2y + 48 > this.player.bulletArr[i].bulletY) {
+                    this.player.bulletArr[i].DeadorAlive = 0;
+                    this.player.ctx.clearRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
+                    this.player.bulletArr.splice(this.player.bulletArr[i]  , 1);
+             }
+        }
+      }
     
       bulletsCollWithMap() {
         for(let i = 0 ; i < this.player.bulletArr.length; i++ )  {
-            console.log(this.player.bulletArr);
             if (this.player.bulletArr[i].bulletX < 0 + this.buletsize || this.player.bulletArr[i].bulletX > 816 - this.buletsize  ||
                 this.player.bulletArr[i].bulletY < 0 + this.buletsize || this.player.bulletArr[i].bulletY > 624  - this.buletsize  ) {
-                    console.log('radau');
                     this.player.bulletArr[i].DeadorAlive = 0;
                     this.player.ctx.clearRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
                     this.player.bulletArr.splice(this.player.bulletArr[i]  , 1); 
@@ -78,7 +86,8 @@ export default class Bullet {
      if( this.DeadorAlive === 1) {
      requestAnimationFrame((e) => this.updateReq());
      this.update();
-    // this.player1andBulletsCollision();
+    this.player1andBulletsCollision();
+    this.player2andBulletsCollision();
      this.bulletsCollWithMap();
      }
 

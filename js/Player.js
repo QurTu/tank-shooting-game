@@ -19,8 +19,8 @@ export default class Player {
          this.dy1 = -1 ;
          this.dx2 = 0;
          this.dy2 = -1 ;
-         this.dMax = 1;
-         this.dMin = -1;
+         this.dMax = 4;
+         this.dMin = -4;
          this.d0 = 0;
 
          this.c  = game.c;
