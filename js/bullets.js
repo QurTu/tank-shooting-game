@@ -10,8 +10,13 @@ export default class Bullet {
         this.bulletXNew = null;
         this.bulletYNew = null;
         this.player = game;
+        this.wallArray = this.player.wallArray;
+        
         this.bulletRender() ;
         this.updateReq();
+       
+       
+        
         
     }
     bulletRender(){
@@ -20,7 +25,34 @@ export default class Bullet {
         this.player.ctx.fillRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
         this.bulletXNew = this.bulletX;
         this.bulletYNew = this.bulletY; 
-    }
+     }
+
+//     bulletAndWallsCollsion(){
+//         for(let i = 0 ; i < this.player.bulletArr.length; i++ ) {
+//             let xas = this.player.bulletArr[i].bulletX;
+//             let yas = this.player.bulletArr[i].bulletX;
+//             console.log("einu");
+//             for( let j = 0 ; this.wallArray.length ; i++ )  {
+//                 if (this.wallArray[j].x        < xas + this.buletsize &&
+//                     this.wallArray[j].x + 16    > xas &&
+//                     this.wallArray[j].y        < yes + this.buletsize &&
+//                     this.wallArray[j].y + 16    > yes) {
+//                        this.player.bulletArr[i].DeadorAlive = 0;
+//                        this.player.ctx.clearRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
+//                        this.player.bulletArr.splice(this.player.bulletArr[i]  , 1);
+// }
+                    
+// } 
+//         }
+//     }
+       
+
+    //     }
+    //     console.log('veikiu') ;
+    //     console.log(this.player.wallArray);
+
+    // }
+   
 
     bulletinitPlace() {
         if( this.dx > 0 && this.dy === 0) {
@@ -89,6 +121,7 @@ export default class Bullet {
     this.player1andBulletsCollision();
     this.player2andBulletsCollision();
      this.bulletsCollWithMap();
+     // this.bulletAndWallsCollsion();
      }
 
  }  

@@ -22,6 +22,7 @@ export default class Player {
          this.dMax = 4;
          this.dMin = -4;
          this.d0 = 0;
+         this.wallArray = this.game.walls.wallArray;
 
          this.c  = game.c;
          this.ctx = game.ctx;
