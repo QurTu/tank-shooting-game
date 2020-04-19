@@ -13,6 +13,16 @@ export default class Player {
          this.lastplayer1Position = {};
          this.lastplayer2Position = {}; 
          this.pressedKeys = [];
+
+         this.bulletArr = []; 
+         this.dx1 = 0;
+         this.dy1 = -1 ;
+         this.dx2 = 0;
+         this.dy2 = -1 ;
+         this.dMax = 1;
+         this.dMin = -1;
+         this.d0 = 0;
+
          this.c  = game.c;
          this.ctx = game.ctx;
          this.img1 = document.querySelector(".player1");
@@ -130,15 +140,25 @@ return collision;
         this.pressedKeys[e.keyCode] = false;
     }
     
-    // movment and collision render
+    // movment and collision render and shooting
    update(e) {
        this.pressedKeys[e.keyCode] = true;
        
+       console.log(e.keyCode);
+
+       if (this.pressedKeys[32]) {
+        this.bulletArr.push( new Bullet(this.Player1x , this.Player1y, this.dx1 , this.dy1 , this ));
+
+       } 
+ 
+
+
+
     
        if (this.pressedKeys[87]) {
-           
+           this.dx1 = this.d0;
+           this.dy1 = this.dMin;
             this.Player1y -= 6; 
-           
             if(this.PlayerColision() === 1 || this.Player1ColisionWithWalls().includes(1) ) {
                 this.Player1y += 6; }
             if (this.Player1y < 0) {
@@ -146,7 +166,8 @@ return collision;
         this.updateDraw();}
 
        if (this.pressedKeys[83]) {
-        
+        this.dx1 = this.d0;
+           this.dy1 = this.dMax;
         this.Player1y += 6;
         if(this.PlayerColision() === 4  || this.Player1ColisionWithWalls().includes(4) ) {
             this.Player1y -= 6;}
@@ -155,6 +176,8 @@ return collision;
         this.updateDraw();}
 
     if ( this.pressedKeys[68]) {
+        this.dx1 = this.dMax;
+           this.dy1 = this.d0;
         
         this.Player1x += 6;
         if(this.PlayerColision() === 2 || this.Player1ColisionWithWalls().includes(2)) {
@@ -164,6 +187,8 @@ return collision;
         this.updateDraw();}
 
     if ( this.pressedKeys[65]) {
+        this.dx1 = this.dMin;
+           this.dy1 = this.d0;
         this.Player1x -= 6; 
         if(this.PlayerColision() === 3  ) {
             this.Player1x += 6; }
@@ -175,8 +200,14 @@ return collision;
         this.updateDraw();}
 
 // player 2 controls
+if (this.pressedKeys[107]) {
+    this.bulletArr.push( new Bullet(this.Player2x , this.Player2y, this.dx2 , this.dy2 , this ));
+
+   } 
 
     if ( this.pressedKeys[104]) {
+        this.dx2 = this.d0;
+           this.dy2 = this.dMin;
         this.Player2y -= 6;
             if(this.PlayerColision2() === 1|| this.Player1ColisionWithWalls2().includes(1)) {
                 this.Player2y += 6; }
@@ -185,6 +216,8 @@ return collision;
         this.updateDraw(); }
 
     if ( this.pressedKeys[101]) {
+        this.dx2 = this.d0;
+           this.dy2 = this.dMax;
      this.Player2y += 6;
         if(this.PlayerColision2() === 4|| this.Player1ColisionWithWalls2().includes(4)) {
             this.Player2y -= 6;}
@@ -194,6 +227,8 @@ return collision;
     }
 
  if ( this.pressedKeys[102]) {
+    this.dx2 = this.dMax;
+    this.dy2 = this.d0;
      this.Player2x += 6;
      if(this.PlayerColision2() === 2|| this.Player1ColisionWithWalls2().includes(2)) {
         this.Player2x -= 6;}
@@ -202,6 +237,8 @@ return collision;
      this.updateDraw();}
 
  if ( this.pressedKeys[100]) {
+    this.dx2 = this.dMin;
+    this.dy2 = this.d0;
      this.Player2x -= 6;
      if(this.PlayerColision2() === 3) {
         this.Player2x += 6;}
