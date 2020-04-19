@@ -13,6 +13,7 @@ export default class Walls {
          this.earthWallArray = [];
          this.earthWallArrayBuilding();
         this.img.onload = this.renderWalls();
+        this.wallArray.push(...this.earthWallArray );
        
 
    }

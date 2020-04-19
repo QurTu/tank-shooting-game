@@ -30,22 +30,54 @@ export default class Player {
     Player1ColisionWithWalls() {
         let collision= [];
         for(let i =0; i < this.game.walls.wallArray.length; i++) {
-                let dx=(this.Player1x + 48 /2)-(this.game.walls.wallArray[i].x + 16/2);
-                let dy=(this.Player1y + 48 /2) -  (this.game.walls.wallArray[i].y + 16 /2);
-                let width=(48 + 16) /  2;
-                let height=(48 + 16) / 2;
+                let dx=(this.Player1x + 47 /2)-(this.game.walls.wallArray[i].x + 16/2);
+                let dy=(this.Player1y + 47 /2) -  (this.game.walls.wallArray[i].y + 16 /2);
+                let width=(47 + 16) /  2;
+                let height=(47 + 16) / 2;
                 let crossWidth=width*dy;
                 let crossHeight=height*dx;
                 if(Math.abs(dx)<=width && Math.abs(dy)<=height){
                     if(crossWidth>crossHeight){
                         collision.push((crossWidth>(-crossHeight))?1:2);
                     }else{
-                        collision.push((crossWidth>-(crossHeight))?3: 4);
+                        collision.push((crossWidth>-(crossHeight))? this.game.walls.wallArray[i].x +16  : 4);
                     }  
             }
 }
-
 return collision;
+    }
+
+
+    Player1ColisionWithWalls2() {
+        let collision= [];
+        for(let i =0; i < this.game.walls.wallArray.length; i++) {
+                let dx=(this.Player2x + 47 /2)-(this.game.walls.wallArray[i].x + 16/2);
+                let dy=(this.Player2y + 47 /2) -  (this.game.walls.wallArray[i].y + 16 /2);
+                let width=(47 + 16) /  2;
+                let height=(47 + 16) / 2;
+                let crossWidth=width*dy;
+                let crossHeight=height*dx;
+                if(Math.abs(dx)<=width && Math.abs(dy)<=height){
+                    if(crossWidth>crossHeight){
+                        collision.push((crossWidth>(-crossHeight))?1:2);
+                    }else{
+                        collision.push((crossWidth>-(crossHeight))? this.game.walls.wallArray[i].x +16  : 4);
+                    }  
+            }
+}
+return collision;
+    }
+
+
+
+    SideColision(array) {
+        for( let i = 0 ; i < array.length; i++) {
+            if ( array[i] > 4) {
+                return array[i];
+            }
+        }
+        return 3;
+        
     }
         
 
@@ -116,7 +148,6 @@ return collision;
        if (this.pressedKeys[83]) {
         
         this.Player1y += 6;
-        console.log(this.Player1ColisionWithWalls());
         if(this.PlayerColision() === 4  || this.Player1ColisionWithWalls().includes(4) ) {
             this.Player1y -= 6;}
         if (this.Player1y > this.game.heightCanvas - this.playerHeight) {
@@ -125,8 +156,7 @@ return collision;
 
     if ( this.pressedKeys[68]) {
         
-        this.Player1x += 6; 
-        console.log(this.Player1ColisionWithWalls());
+        this.Player1x += 6;
         if(this.PlayerColision() === 2 || this.Player1ColisionWithWalls().includes(2)) {
             this.Player1x -= 6;}
         if(this.Player1x > this.game.widthCanvas - this.playerWidth) {
@@ -134,11 +164,12 @@ return collision;
         this.updateDraw();}
 
     if ( this.pressedKeys[65]) {
-
         this.Player1x -= 6; 
-        console.log(this.Player1ColisionWithWalls());
-        if(this.PlayerColision() === 3 || this.Player1ColisionWithWalls().includes(3) ) {
+        if(this.PlayerColision() === 3  ) {
             this.Player1x += 6; }
+        if(this.SideColision(this.Player1ColisionWithWalls()) > 4 ) {
+                this.Player1x = this.SideColision(this.Player1ColisionWithWalls())
+            }
         if(this.Player1x < 0 ) {
             this.Player1x = 0;}
         this.updateDraw();}
@@ -147,7 +178,7 @@ return collision;
 
     if ( this.pressedKeys[104]) {
         this.Player2y -= 6;
-            if(this.PlayerColision2() === 1) {
+            if(this.PlayerColision2() === 1|| this.Player1ColisionWithWalls2().includes(1)) {
                 this.Player2y += 6; }
             if (this.Player2y < 0) {
             this.Player2y += 6;}
@@ -155,7 +186,7 @@ return collision;
 
     if ( this.pressedKeys[101]) {
      this.Player2y += 6;
-        if(this.PlayerColision2() === 4) {
+        if(this.PlayerColision2() === 4|| this.Player1ColisionWithWalls2().includes(4)) {
             this.Player2y -= 6;}
         if (this.Player2y > this.game.heightCanvas - this.playerHeight) {
             this.Player2y -= 6;}
@@ -164,7 +195,7 @@ return collision;
 
  if ( this.pressedKeys[102]) {
      this.Player2x += 6;
-     if(this.PlayerColision2() === 2) {
+     if(this.PlayerColision2() === 2|| this.Player1ColisionWithWalls2().includes(2)) {
         this.Player2x -= 6;}
     if(this.Player2x > this.game.widthCanvas - this.playerWidth) {
          this.Player2x = this.game.widthCanvas - this.playerWidth;};
@@ -176,6 +207,9 @@ return collision;
         this.Player2x += 6;}
      if(this.Player2x < 0 ) {
          this.Player2x = 0;};
+         if(this.SideColision(this.Player1ColisionWithWalls2()) > 4 ) {
+            this.Player2x = this.SideColision(this.Player1ColisionWithWalls2())
+        }
      this.updateDraw();}
 
 }
@@ -200,7 +234,7 @@ return collision;
         this.img2.onload = this.ctx.drawImage( this.img2 , this.Player2x , this.Player2y, this.playerHeight, this.playerWidth);
         this.lastplayer2Position = { x:this.Player2x, y:this.Player2y }; }
     player2Place() {
-    this.Player2x = this.game.widthCanvas / 2   + this.playerWidth  +8 ;
+    this.Player2x = 48 *10 ;
     this.Player2y = this.game.heightCanvas - this.playerHeight ;
     }
 
