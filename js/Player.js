@@ -1,4 +1,4 @@
-
+import Bullet from './bullets.js';
 
 export default class Player {
     constructor(playerNumber , game){
