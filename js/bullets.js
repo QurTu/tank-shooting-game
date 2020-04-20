@@ -108,41 +108,48 @@ export default class Bullet {
     
     this.bulletXNew += this.dx ;
     this.bulletYNew += this.dy ;
-    let dxPresent = this.dx;
-    let dyPresent = this.dy;
+    this.dxPresent = this.dx;
+    this.dyPresent = this.dy;
     this.updateReDraw();
+    this.WallsAndBulletAndBulletCollision() 
+   
+
+
+ }
+
+ WallsAndBulletAndBulletCollision() {
     for( let i = 0; i < this.wallArray.length; i++) {
         if (this.wallArray[i].x        < this.bulletXNew + this.buletsize &&
             this.wallArray[i].x + 16    > this.bulletXNew  &&
             this.wallArray[i].y        <  this.bulletYNew + this.buletsize &&
             this.wallArray[i].y + 16    >  this.bulletYNew )  {
-                console.log(this.wallArray.length);
                      this.DeadorAlive = 0;
-                    this.player.ctx.clearRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
+                     this.player.ctx.clearRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
                      this.player.bulletArr.splice(this  , 1);
                      this.player.ctx.clearRect(this.wallArray[i].x, this.wallArray[i].y, 16, 16 );
-                     if(dxPresent === 0 ) {
+                     if(this.dxPresent === 0 ) {
                         this.player.ctx.clearRect(this.wallArray[i].x + 16, this.wallArray[i].y, 16, 16 );
                         this.player.ctx.clearRect(this.wallArray[i].x - 16, this.wallArray[i].y, 16, 16 );
-                        // this.wallArray.splice(this.wallArray[i], 1);
-                        //  console.log(this.wallArray.length);
-
-
+                        let nowX = this.wallArray[i].x;
+                        let nowY = this.wallArray[i].y;
+                        this.wallArray.splice(  this.wallArray.findIndex(x => x.x === nowX && x.y === nowY )  , 1);
+                        this.wallArray.splice(  this.wallArray.findIndex(x => x.x === nowX + 16 && x.y === nowY )  , 1);
+                        this.wallArray.splice(  this.wallArray.findIndex(x => x.x === nowX - 16 && x.y === nowY )  , 1);
+                        break;
                      }
-                     if(dyPresent === 0) {
+                     if(this.dyPresent === 0) {
                         this.player.ctx.clearRect(this.wallArray[i].x , this.wallArray[i].y + 16, 16, 16 );
                         this.player.ctx.clearRect(this.wallArray[i].x , this.wallArray[i].y - 16, 16, 16 );
-                    //     this.wallArray.splice(this.wallArray[i], 1);
-                    //     console.log(this.wallArray.length);
+                        let nowX = this.wallArray[i].x;
+                        let nowY = this.wallArray[i].y;
+                        this.wallArray.splice(  this.wallArray.findIndex(x => x.x === nowX && x.y === nowY )  , 1);
+                        this.wallArray.splice(  this.wallArray.findIndex(x => x.x === nowX  && x.y === nowY + 16)  , 1);
+                        this.wallArray.splice(  this.wallArray.findIndex(x => x.x === nowX  && x.y === nowY - 16)  , 1);
+                        break;
                       }
-                     
-                     
-
-                     
-
             }
-}        
- }
+}  
+}  
 
 
  updateReDraw() {
