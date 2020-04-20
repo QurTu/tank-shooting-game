@@ -189,21 +189,23 @@ return this.collision;
 
         if(this.EnemyColisionWithWalls().includes(1)) {
             
-           this.newY -= this.dy;  
+           this.newY += Math.abs(this.dy);
            
         }
         if(this.EnemyColisionWithWalls().includes(4)) {
             
-           this.newY +=  this.dy;
+           this.newY -= this.dy;
         }
+
+
         if(this.EnemyColisionWithWalls().includes(2)) {
             
-           this.newX += this.dx;
+           this.newX -= this.dx;
         }
         
-        if(  this.SideColision(this.EnemyColisionWithWalls())   ) {
+        if(  this.SideColision(this.EnemyColisionWithWalls())  > 4 ) {
             
-            this.newX -= this.dx;
+            this.newX = this.SideColision(this.EnemyColisionWithWalls());
             console.log(this.newX);
             console.log(this.newY);
         }

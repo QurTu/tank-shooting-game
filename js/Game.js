@@ -69,10 +69,10 @@ RenderEnemys() {
 
 RenderWaveOfenemys()  {
     
-    if (this.vawe < 1) {
+    if (this.vawe < 20) {
    this.EnemyArray = new Enemy (0, 0, Math.ceil(Math.random()*3), this);
-   //this.EnemyArray = new Enemy (this.widthCanvas / 2 - 24 , 0, Math.ceil(Math.random()*3), this);
-  // this.EnemyArray = new Enemy (this.widthCanvas - 48 , 0, Math.ceil(Math.random()*3), this);
+   this.EnemyArray = new Enemy (this.widthCanvas / 2 - 24 , 0, Math.ceil(Math.random()*3), this);
+   this.EnemyArray = new Enemy (this.widthCanvas - 48 , 0, Math.ceil(Math.random()*3), this);
         this.vawe++;
     }
 }
