@@ -23,7 +23,7 @@ import Bullet from './bullets.js';
         this.updateReq();
         this.DirectionGenerator();
         setInterval(() => this.DirectionGenerator(), 3000);
-      //  setInterval(() => this.BulletGenerator(), 3000)
+       setInterval(() => this.BulletGenerator(), 3000)
  
     }
 
@@ -49,22 +49,22 @@ import Bullet from './bullets.js';
 return this.collision;
     }
 
-//     BulletGenerator( ) {
-//         switch(Math.ceil(Math.random() * 4)) {
-//             case 1:
-//                 this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this ));
-//               break;
-//           case 2:
-//             this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this )) ;
-//               break;
-//           case 3:
-//             this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this )) ;
-//               break;
-//           case 4:
-//             this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this )) ;
-//               break;
-//         }
-//   }
+    BulletGenerator( ) {
+        switch(Math.ceil(Math.random() * 4)) {
+            case 1:
+                this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this ));
+              break;
+          case 2:
+            this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this )) ;
+              break;
+          case 3:
+            this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this )) ;
+              break;
+          case 4:
+            this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this )) ;
+              break;
+        }
+  }
 
 
     
