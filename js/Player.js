@@ -60,7 +60,7 @@ return collision;
 
 
     Player1ColisionWithWalls2() {
-        let collision= [];
+        collision= [];
         for(let i =0; i < this.game.walls.wallArray.length; i++) {
                 let dx=(this.Player2x + 47 /2)-(this.game.walls.wallArray[i].x + 16/2);
                 let dy=(this.Player2y + 47 /2) -  (this.game.walls.wallArray[i].y + 16 /2);
@@ -145,7 +145,7 @@ return collision;
    update(e) {
        this.pressedKeys[e.keyCode] = true;
        
-       console.log(e.keyCode);
+       
 
        if (this.pressedKeys[32]) {
         this.bulletArr.push( new Bullet(this.Player1x , this.Player1y, this.dx1 , this.dy1 , this ));

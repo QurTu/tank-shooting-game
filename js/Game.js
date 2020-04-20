@@ -15,12 +15,17 @@ class Game  {
         this.player1;
         this.player2;
         this.EnemyArray = [];
+        this.vawe = 0;
  
        this.renderGame();
+       setInterval(() => this.RenderEnemys(), 100);
+       
        
       
 
-    }  
+    } 
+   
+    
     renderGame() {
         this.renderCanvas();
         this.renderEarth();
@@ -58,14 +63,18 @@ initPlayers() {
 
 RenderEnemys() {
    
-         this.RenderWaveOfenemys()
+         this.RenderWaveOfenemys();
     
 }
 
 RenderWaveOfenemys()  {
-   this.EnemyArray = new Enemy(0, 0, Math.ceil(Math.random()*3), this);
-   this.EnemyArray = new Enemy(this.widthCanvas / 2 - 24 , 0, Math.ceil(Math.random()*3), this);
-   this.EnemyArray = new Enemy(this.widthCanvas - 48 , 0, Math.ceil(Math.random()*3), this);
+    
+    if (this.vawe < 1) {
+   this.EnemyArray = new Enemy (0, 0, Math.ceil(Math.random()*3), this);
+   //this.EnemyArray = new Enemy (this.widthCanvas / 2 - 24 , 0, Math.ceil(Math.random()*3), this);
+  // this.EnemyArray = new Enemy (this.widthCanvas - 48 , 0, Math.ceil(Math.random()*3), this);
+        this.vawe++;
+    }
 }
 
 

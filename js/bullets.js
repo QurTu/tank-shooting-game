@@ -26,6 +26,7 @@ export default class Bullet {
         this.player.ctx.fillRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
         this.bulletXNew = this.bulletX;
         this.bulletYNew = this.bulletY; 
+        console.log(this.player.bulletArr);
      }
 
 

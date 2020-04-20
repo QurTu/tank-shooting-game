@@ -1,4 +1,6 @@
-export default class Enemy {
+import Bullet from './bullets.js';
+
+ export default class Enemy {
     constructor (spawnX, spawnY, type, game) {
         this.x = spawnX;
         this.y = spawnY;
@@ -8,27 +10,110 @@ export default class Enemy {
         this.game = game;
         this.dx = 0;
         this.dy = 0;
+        this.bulletx = 0;
+        this.bullety = 0;
+        this.c  = game.c;
+         this.ctx = game.ctx;
+        this.bulletArr = [];
+        this.wallArray = this.game.walls.wallArray;
         this.imgFrieza = document.querySelector('.frieza');
         this.imgCell = document.querySelector('.cell');
         this.imgbuu = document.querySelector('.buu');
         this.imgbuu.onload =  this.RenderEnemy();
         this.updateReq();
+        this.DirectionGenerator();
+        setInterval(() => this.DirectionGenerator(), 3000);
+      //  setInterval(() => this.BulletGenerator(), 3000)
  
     }
 
+    EnemyColisionWithWalls() {
+        this.collision= [];
+        
+        for(let i =0; i < this.game.walls.wallArray.length; i++) {
+                let dx=(this.x + 47 /2)-(this.game.walls.wallArray[i].x + 16/2);
+                let dy=(this.y + 47 /2) -  (this.game.walls.wallArray[i].y + 16 /2);
+                let width=(47 + 16) /  2;
+                let height=(47 + 16) / 2;
+                let crossWidth=width*dy;
+                let crossHeight=height*dx;
+                if(Math.abs(dx)<=width && Math.abs(dy)<=height){
+                    if(crossWidth>crossHeight){
+                        this.collision.push((crossWidth>(-crossHeight))?1:2);
+                    }else{
+                        this.collision.push((crossWidth>-(crossHeight))? this.game.walls.wallArray[i].x + 16  : 4);
+                    }  
+            }
+}
+
+return this.collision;
+    }
+
+//     BulletGenerator( ) {
+//         switch(Math.ceil(Math.random() * 4)) {
+//             case 1:
+//                 this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this ));
+//               break;
+//           case 2:
+//             this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this )) ;
+//               break;
+//           case 3:
+//             this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this )) ;
+//               break;
+//           case 4:
+//             this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this )) ;
+//               break;
+//         }
+//   }
+
+
+    
+
+    DirectionGenerator() {
+          switch(Math.ceil(Math.random() * 4)) {
+              case 1:
+                this.dx = 0;
+                this.dy = 1;
+                this.bulletx = 0;
+                this.bullety = 4;
+                break;
+            case 2:
+                this.dx = 0;
+                this.dy = - 1;
+                this.bulletx = 0;
+                this.bullety = -4;
+                break;
+            case 3:
+                this.dx =  1;
+                this.dy = 0;
+                this.bulletx = 4;
+                this.bullety = 0;
+                break;
+            case 4:
+                this.dx = - 1;
+                this.dy = 0;
+                this.bulletx = -4;
+                 this.bullety = 0;
+                break;
+          }
+    }
 
 
     updateReq() {
-    
     requestAnimationFrame((e) => this.updateReq());
     this.update();
-    console.log('drau');
+    
+    
     
 }  
         update() {
+            
+            
+            
             this.newX += this.dx;
             this.newY += this.dy;
             this.stayInMap();
+            this.hittingWall();
             this.updateReDraw();
 
         }
@@ -76,18 +161,59 @@ export default class Enemy {
    this.newY += Math.abs(this.dy)}
 
   if (this.newY > this.game.heightCanvas - 48) {
-       this.newY -= Math.abs(this.dy);}
+       this.newY = this.game.heightCanvas - 48;}
 
     if(this.newX > this.game.widthCanvas - 48) {
        this.newX = this.game.widthCanvas - 48;}
 
-         if(this.newX < 0 ) {
+         if(this.newX  < 0 ) {
                this.newX = 0;}
 
     }
 
+    SideColision(array) {
+        for( let i = 0 ; i < array.length; i++) {
+            if ( array[i] > 4) {
+                return array[i];
+            }
+        }
+        return 3;
+        
+    }
+    hittingWall() {
+        console.log(this.EnemyColisionWithWalls());
+        console.log(this.EnemyColisionWithWalls().includes(1));
+        console.log(this.EnemyColisionWithWalls().includes(4));
+        console.log(this.EnemyColisionWithWalls().includes(2));
+        console.log( this.SideColision(this.EnemyColisionWithWalls()));
 
+        if(this.EnemyColisionWithWalls().includes(1)) {
+            
+           this.newY -= this.dy;  
+           
+        }
+        if(this.EnemyColisionWithWalls().includes(4)) {
+            
+           this.newY +=  this.dy;
+        }
+        if(this.EnemyColisionWithWalls().includes(2)) {
+            
+           this.newX += this.dx;
+        }
+        
+        if(  this.SideColision(this.EnemyColisionWithWalls())   ) {
+            
+            this.newX -= this.dx;
+            console.log(this.newX);
+            console.log(this.newY);
+        }
+
+    }
 }
+
+
+
+
 
 // updateReDraw() {
 //     //player1
@@ -117,15 +243,3 @@ export default class Enemy {
 
 
 
-
-//   if (this.Player1y < 0) {
-//     this.Player1y += 6; }
-
-//     if (this.Player1y > this.game.heightCanvas - this.playerHeight) {
-//         this.Player1y -= 6;}
-
-//         if(this.Player1x > this.game.widthCanvas - this.playerWidth) {
-//             this.Player1x = this.game.widthCanvas - this.playerWidth;}
-
-//             if(this.Player1x < 0 ) {
-//                 this.Player1x = 0;}

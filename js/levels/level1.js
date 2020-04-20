@@ -13,6 +13,7 @@ let level1 = [];
  RenderLenght( 48 * 11, 48, 14 , "toX" , 1);
  RenderLenght( 48 * 13, 48, 16 , "toX" , 1);
  RenderLenght( 48 * 15, 48, 16 , "toX" , 2);
+ RenderLenght( 48, 48, 50 , "toY" , 1);
  
 
 
