@@ -5,14 +5,14 @@ let level1 = [];
  
 
 
- RenderLenght( 48, 48, 16 , "toX");
- RenderLenght( 48 *3, 48, 16 , "toX");
- RenderLenght( 48 *5, 48, 14 , "toX");
- RenderLenght( 48 * 7, 48, 12 , "toX");
- RenderLenght( 48 * 9, 48, 12 , "toX");
- RenderLenght( 48 * 11, 48, 14 , "toX");
- RenderLenght( 48 * 13, 48, 16 , "toX");
- RenderLenght( 48 * 15, 48, 16 , "toX");
+ RenderLenght( 48, 48, 16 , "toX" , 1);
+ RenderLenght( 48 *3, 48, 16 , "toX" , 1);
+ RenderLenght( 48 *5, 48, 14 , "toX" , 1);
+ RenderLenght( 48 * 7, 48, 12 , "toX" , 1);
+ RenderLenght( 48 * 9, 48, 12 , "toX" , 1);
+ RenderLenght( 48 * 11, 48, 14 , "toX" , 1);
+ RenderLenght( 48 * 13, 48, 16 , "toX" , 1);
+ RenderLenght( 48 * 15, 48, 16 , "toX" , 2);
  
 
 
@@ -20,16 +20,16 @@ let level1 = [];
 
 
 
- function RenderLenght(x , y , lenght , toYorToX) {
+ function RenderLenght(x , y , lenght , toYorToX , t) {
     if (toYorToX === "toY") {
         for (let i = 0 ; i < lenght; i++ ) {
-          RenderToY(x, y);
+          RenderToY(x, y , t);
           x += 16;
         }
       }
      if (toYorToX === "toX") {
       for (let i = 0 ; i < lenght; i++ ) {
-        RenderToX(x, y);
+        RenderToX(x, y, t);
         y += 16;
       }
     }
@@ -37,19 +37,19 @@ let level1 = [];
  }
 
 
- function RenderToX(xKord, yKord) {
+ function RenderToX(xKord, yKord , type) {
     let y1 = yKord;
     let x1 = xKord;
      for( let i = 0 ; i < 3 ; i++) {
-        level1.push({x: x1, y: y1})
+        level1.push({x: x1, y: y1 , t: type })
         x1 += 16;
      }    
 }
-function RenderToY(xKord, yKord) {
+function RenderToY(xKord, yKord, type) {
     let y1 = yKord;
     let x1 = xKord;
      for( let i = 0 ; i < 3 ; i++) {
-        level1.push({x: x1, y: y1})
+        level1.push({x: x1, y: y1 , t: type })
         y1 += 16;
      }    
 }

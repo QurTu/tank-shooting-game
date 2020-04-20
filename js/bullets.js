@@ -11,8 +11,9 @@ export default class Bullet {
         this.bulletYNew = null;
         this.player = game;
         this.wallArray = this.player.wallArray;
+        this.img = document.querySelector('.rock');
         
-        this.bulletRender() ;
+        this.img.onload =this.bulletRender() ;
         this.updateReq();
        
        
@@ -126,7 +127,15 @@ export default class Bullet {
                      this.DeadorAlive = 0;
                      this.player.ctx.clearRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
                      this.player.bulletArr.splice(this  , 1);
-                     this.player.ctx.clearRect(this.wallArray[i].x, this.wallArray[i].y, 16, 16 );
+                     
+                     if(this.wallArray[i].t === 2) {
+                         console.log('veikiu');
+                         this.player.ctx.fillStyle = this.player.ctx.createPattern(this.img, 'repeat');
+                        this.player.ctx.fillRect(this.wallArray[i].x, this.wallArray[i].y, 16, 16 );
+                    }
+
+                     if(this.wallArray[i].t === 1) {
+                        this.player.ctx.clearRect(this.wallArray[i].x, this.wallArray[i].y, 16, 16 );
                      if(this.dxPresent === 0 ) {
                         this.player.ctx.clearRect(this.wallArray[i].x + 16, this.wallArray[i].y, 16, 16 );
                         this.player.ctx.clearRect(this.wallArray[i].x - 16, this.wallArray[i].y, 16, 16 );
@@ -147,6 +156,7 @@ export default class Bullet {
                         this.wallArray.splice(  this.wallArray.findIndex(x => x.x === nowX  && x.y === nowY - 16)  , 1);
                         break;
                       }
+                    }
             }
 }  
 }  
