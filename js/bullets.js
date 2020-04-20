@@ -132,6 +132,7 @@ export default class Bullet {
                          console.log('veikiu');
                          this.player.ctx.fillStyle = this.player.ctx.createPattern(this.img, 'repeat');
                         this.player.ctx.fillRect(this.wallArray[i].x, this.wallArray[i].y, 16, 16 );
+                        this.player.ctx.fillStyle = "#FF0000";
                     }
 
                      if(this.wallArray[i].t === 1) {
