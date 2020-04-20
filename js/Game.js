@@ -2,6 +2,7 @@ import Canvas from './Canvas.js';
 import  Earth from './Earth.js';
 import  Walls from './Walls.js';
 import Player from './Player.js';
+import Enemy from './Enemy.js';
 
 class Game  {
     constructor( level, playersNumber) {
@@ -9,20 +10,23 @@ class Game  {
         this.c = null;
         this.ctx = null;
         this.playersNumber = playersNumber;
+        this.walls;
+        this.earth;
+        this.player1;
+        this.player2;
+        this.EnemyArray = [];
+ 
        this.renderGame();
-       this.initPlayers();
-       this.walls;
-       this.earth;
-       this.player1;
-       this.player2;
-
        
+      
 
     }  
     renderGame() {
         this.renderCanvas();
         this.renderEarth();
         this.renderWalls();
+        this.initPlayers();
+        this.RenderEnemys();
     }
 
 renderCanvas() {
@@ -51,6 +55,19 @@ initPlayers() {
         this.player2 = new Player( 2 , this);
     }
 }
+
+RenderEnemys() {
+   
+         this.RenderWaveOfenemys()
+    
+}
+
+RenderWaveOfenemys()  {
+   this.EnemyArray = new Enemy(0, 0, Math.ceil(Math.random()*3), this);
+   this.EnemyArray = new Enemy(this.widthCanvas / 2 - 24 , 0, Math.ceil(Math.random()*3), this);
+   this.EnemyArray = new Enemy(this.widthCanvas - 48 , 0, Math.ceil(Math.random()*3), this);
+}
+
 
 
     

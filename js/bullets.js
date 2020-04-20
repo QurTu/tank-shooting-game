@@ -100,7 +100,7 @@ export default class Bullet {
     this.player1andBulletsCollision();
     this.player2andBulletsCollision();
      this.bulletsCollWithMap();
-     // this.bulletAndWallsCollsion();
+
      }
 
  }  
