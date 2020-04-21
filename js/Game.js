@@ -16,6 +16,7 @@ class Game  {
         this.player2;
         this.EnemyArray = [];
         this.vawe = 0;
+        this.EnemyBulletArray = [];
  
        this.renderGame();
        setInterval(() => this.RenderEnemys(), 100);
@@ -70,9 +71,9 @@ RenderEnemys() {
 RenderWaveOfenemys()  {
     
     if (this.vawe < 2) {
-   this.EnemyArray = new Enemy (0, 0, Math.ceil(Math.random()*3), this);
-   this.EnemyArray = new Enemy (this.widthCanvas / 2 - 24 , 0, Math.ceil(Math.random()*3), this);
-   this.EnemyArray = new Enemy (this.widthCanvas - 48 , 0, Math.ceil(Math.random()*3), this);
+        this.EnemyArray.push(  new Enemy (0, 0, Math.ceil(Math.random()*3), this ) ) ; 
+        this.EnemyArray.push(new Enemy  (this.widthCanvas / 2 - 24 , 0, Math.ceil(Math.random()*3), this ) ) ; 
+        this.EnemyArray.push( new Enemy (this.widthCanvas - 48 , 0, Math.ceil(Math.random()*3), this ) ) ; 
         this.vawe++;
     }
 }

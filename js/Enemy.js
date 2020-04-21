@@ -15,6 +15,12 @@ import Bullet from './bullets.js';
         this.c  = game.c;
          this.ctx = game.ctx;
         this.bulletArr = [];
+        this.alive = 1;
+
+        this.PlayerBulletArr =  [];
+       
+
+        this.enemyBulletarray = [];
         this.wallArray = this.game.walls.wallArray;
         this.imgFrieza = document.querySelector('.frieza');
         this.imgCell = document.querySelector('.cell');
@@ -26,6 +32,7 @@ import Bullet from './bullets.js';
        setInterval(() => this.BulletGenerator(), 3000)
  
     }
+    
 
     EnemyColisionWithWalls() {
         this.collision= [];
@@ -52,16 +59,25 @@ return this.collision;
     BulletGenerator( ) {
         switch(Math.ceil(Math.random() * 4)) {
             case 1:
-                this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this ));
+                let n = new Bullet(this.x , this.y, this.bulletx , this.bullety , this);
+                this.bulletArr.push(n);
+               
+                console.log( this.enemyBulletarray);
               break;
           case 2:
             this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this )) ;
+            
+            console.log( this.enemyBulletarray);
               break;
           case 3:
             this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this )) ;
+            
+            console.log( this.enemyBulletarray);
               break;
           case 4:
             this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this )) ;
+            
+            console.log( this.enemyBulletarray);
               break;
         }
   }
@@ -100,13 +116,16 @@ return this.collision;
 
 
     updateReq() {
+        if(this.alive === 1) {
     requestAnimationFrame((e) => this.updateReq());
     this.update();
     
+        }
     
     
 }  
         update() {
+            
             
             
             
@@ -115,8 +134,11 @@ return this.collision;
             this.stayInMap();
             this.hittingWall();
             this.updateReDraw();
+         
 
         }
+
+       
             
             updateReDraw() {
                 this.game.ctx.clearRect(this.x, this.y, 48, 48 );
@@ -181,11 +203,7 @@ return this.collision;
         
     }
     hittingWall() {
-        console.log(this.EnemyColisionWithWalls());
-        console.log(this.EnemyColisionWithWalls().includes(1));
-        console.log(this.EnemyColisionWithWalls().includes(4));
-        console.log(this.EnemyColisionWithWalls().includes(2));
-        console.log( this.SideColision(this.EnemyColisionWithWalls()));
+       
 
         if(this.EnemyColisionWithWalls().includes(1)) {
             
@@ -206,8 +224,7 @@ return this.collision;
         if(  this.SideColision(this.EnemyColisionWithWalls())  > 4 ) {
             
             this.newX = this.SideColision(this.EnemyColisionWithWalls());
-            console.log(this.newX);
-            console.log(this.newY);
+           
         }
 
     }

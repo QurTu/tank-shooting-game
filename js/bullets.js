@@ -12,6 +12,10 @@ export default class Bullet {
         this.player = game;
         this.wallArray = this.player.wallArray;
         this.img = document.querySelector('.rock');
+        this.enemyBullets = game.enemyBulletarray;
+        this.playerBullet = game.PlayerBulletArr;
+        this.enemyArray=   game.game.EnemyArray;
+    
         
         this.img.onload =this.bulletRender() ;
         this.updateReq();
@@ -20,13 +24,103 @@ export default class Bullet {
         
         
     }
+
+ShootingEnemy(){
+    if( this.player.bulletArr.indexOf(this) > 0 ) {
+        console.log(this.player.bulletArr.indexOf(this));
+
+        for(let i = 0 ; i <  this.enemyArray.length; i++ ) {
+            if (this.bulletX < this.enemyArray[i].newX + 48 &&
+                this.bulletX + this.buletsize > this.enemyArray[i].x &&
+                this.bulletY < this.enemyArray[i].newY + 48 &&
+                this.bulletY + this.buletsize> this.enemyArray[i].y) {
+                    this.player.bulletArr.splice(this.player.bulletArr[i]  , 1);
+                    this.player.ctx.clearRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
+                    this.DeadorAlive = 0;
+                    this.enemyArray.splice(this.enemyArray[i], 1 );
+                    this.enemyArray[i].alive = 0;
+                    this.player.ctx.clearRect(this.enemyArray[i].y, this.enemyArray[i].x, 48, 48 );
+
+
+
+                    console.log('pataikaiu');
+
+
+        }
+
+    }
+}
+}
+
+
+
+    updateFromOtherClass() {
+        this.enemyBullets = this.player.enemyBulletarray;
+        this.playerBullet = this.player.PlayerBulletArr;
+        this.enemyArray=   this.player.game.EnemyArray;
+
+    }
+
+
+
+    BulletsCollsion() {
+        
+        for(let i = 0 ; i < this.player.bulletArr.length; i++ ) {
+            if(this.player.bulletArr[i] !== this ) {
+                if (this.bulletX < this.player.bulletArr[i].bulletX + this.buletsize &&
+                    this.bulletX + this.buletsize > this.player.bulletArr[i].bulletX &&
+                    this.bulletY < this.player.bulletArr[i].bulletY + this.buletsize &&
+                    this.bulletY+ this.buletsize> this.player.bulletArr[i].bulletY) {
+                        
+                            this.player.bulletArr[i].DeadorAlive = 0;
+                            this.player.ctx.clearRect(this.player.bulletArr[i].bulletX, this.player.bulletArr[i].bulletY, this.buletsize, this.buletsize );
+                            this.player.bulletArr.splice(this.player.bulletArr[i]  , 1);
+                            this.player.ctx.clearRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
+                            this.DeadorAlive = 0;
+                            this.player.bulletArr.splice( this.player.bulletArr.indexOf(this) , 1);
+                            if(this.enemyBullets.indexOf(this) >= 0)
+                            this.player.bulletArr.splice( this.enemyBullets.indexOf(this) , 1);
+                    }
+            }
+        } 
+        
+        for(let i = 0 ; i < this.enemyBullets.length; i++ ) {
+           
+            if (this.bulletX < this.enemyBullets[i].bulletX + this.buletsize &&
+                this.bulletX + this.buletsize > this.enemyBullets[i].bulletX &&
+                this.bulletY < this.enemyBullets[i].bulletY + this.buletsize &&
+                this.bulletY+ this.buletsize> this.enemyBullets[i].bulletY) {
+                   
+                    this.enemyBullets[i].DeadorAlive = 0;
+                    this.player.ctx.clearRect(this.enemyBullets[i].bulletX, this.enemyBullets[i].bulletY, this.buletsize, this.buletsize );
+                    this.player.bulletArr.splice(this.enemyBullets[i]  , 1);
+                    this.player.ctx.clearRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
+                    this.DeadorAlive = 0;
+                    if(this.player.bulletArr.indexOf(this) >= 0) {
+                        this.player.bulletArr.splice( this.player.bulletArr.indexOf(this) , 1);
+                    }
+                    
+                    if(this.enemyBullets.indexOf(this) >= 0)
+                    this.player.bulletArr.splice( this.enemyBullets.indexOf(this) , 1);
+
+            }
+
+
+        }
+       
+      
+
+       
+        
+    }
+    
     bulletRender(){
           this.bulletinitPlace() ;
         this.player.ctx.fillStyle = "#FF0000";
         this.player.ctx.fillRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
         this.bulletXNew = this.bulletX;
         this.bulletYNew = this.bulletY; 
-        console.log(this.player.bulletArr);
+        console.log(this.enemyArray);
      }
 
 
@@ -62,6 +156,11 @@ export default class Bullet {
                     this.player.bulletArr[i].DeadorAlive = 0;
                     this.player.ctx.clearRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
                     this.player.bulletArr.splice(this.player.bulletArr[i]  , 1);
+                    if(this.enemyBullets.indexOf(this) >= 0)
+                    this.player.bulletArr.splice( this.enemyBullets.indexOf(this) , 1);
+
+            
+                    
              }
         }
       }
@@ -75,6 +174,10 @@ export default class Bullet {
                     this.player.bulletArr[i].DeadorAlive = 0;
                     this.player.ctx.clearRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
                     this.player.bulletArr.splice(this.player.bulletArr[i]  , 1);
+                    if(this.enemyBullets.indexOf(this) >= 0)
+                    this.player.bulletArr.splice( this.enemyBullets.indexOf(this) , 1);
+
+            
                     
                     
              }
@@ -88,6 +191,10 @@ export default class Bullet {
                     this.player.bulletArr[i].DeadorAlive = 0;
                     this.player.ctx.clearRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
                     this.player.bulletArr.splice(this.player.bulletArr[i]  , 1); 
+                    if(this.enemyBullets.indexOf(this) >= 0)
+                    this.player.bulletArr.splice( this.enemyBullets.indexOf(this) , 1);
+
+            
                 }
 
             }
@@ -101,6 +208,10 @@ export default class Bullet {
     this.player1andBulletsCollision();
     this.player2andBulletsCollision();
      this.bulletsCollWithMap();
+     this.BulletsCollsion();
+     this.updateFromOtherClass();
+     this.ShootingEnemy();
+     
 
      }
 
@@ -128,12 +239,20 @@ export default class Bullet {
                      this.DeadorAlive = 0;
                      this.player.ctx.clearRect(this.bulletX, this.bulletY, this.buletsize, this.buletsize );
                      this.player.bulletArr.splice(this  , 1);
+                     if(this.enemyBullets.indexOf(this) >= 0)
+                    this.player.bulletArr.splice( this.enemyBullets.indexOf(this) , 1);
+
+            
                      
                      if(this.wallArray[i].t === 2) {
-                         console.log('veikiu');
+                         
                          this.player.ctx.fillStyle = this.player.ctx.createPattern(this.img, 'repeat');
                         this.player.ctx.fillRect(this.wallArray[i].x, this.wallArray[i].y, 16, 16 );
                         this.player.ctx.fillStyle = "#FF0000";
+                        if(this.enemyBullets.indexOf(this) >= 0)
+                    this.player.bulletArr.splice( this.enemyBullets.indexOf(this) , 1);
+
+            
                     }
 
                      if(this.wallArray[i].t === 1) {

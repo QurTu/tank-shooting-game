@@ -14,7 +14,13 @@ export default class Player {
          this.lastplayer2Position = {}; 
          this.pressedKeys = [];
 
+        
+
+
+         this.enemyBulletarray = [];
          this.bulletArr = []; 
+         this.PlayerBulletArr = this.bulletArr;
+
          this.dx1 = 0;
          this.dy1 = -1 ;
          this.dx2 = 0;
@@ -36,6 +42,9 @@ export default class Player {
 
 
     }
+
+
+
 
     //player1 collsion with walls
     Player1ColisionWithWalls() {
@@ -287,7 +296,6 @@ updateDraw() {
     this.ctx.clearRect(this.lastplayer2Position.x, this.lastplayer2Position.y, this.playerWidth, this.playerWidth);
     this.img2.onload = this.ctx.drawImage( this.img2 , this.Player2x , this.Player2y, this.playerHeight, this.playerWidth);
     this.lastplayer2Position = { x:this.Player2x, y:this.Player2y };   
-    console.log('suveikiu');
 }
 
 
