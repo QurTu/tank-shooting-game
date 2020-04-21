@@ -60,7 +60,7 @@ return collision;
 
 
     Player1ColisionWithWalls2() {
-        collision= [];
+       let collision= [];
         for(let i =0; i < this.game.walls.wallArray.length; i++) {
                 let dx=(this.Player2x + 47 /2)-(this.game.walls.wallArray[i].x + 16/2);
                 let dy=(this.Player2y + 47 /2) -  (this.game.walls.wallArray[i].y + 16 /2);
@@ -287,6 +287,7 @@ updateDraw() {
     this.ctx.clearRect(this.lastplayer2Position.x, this.lastplayer2Position.y, this.playerWidth, this.playerWidth);
     this.img2.onload = this.ctx.drawImage( this.img2 , this.Player2x , this.Player2y, this.playerHeight, this.playerWidth);
     this.lastplayer2Position = { x:this.Player2x, y:this.Player2y };   
+    console.log('suveikiu');
 }
 
 
