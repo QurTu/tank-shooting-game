@@ -98,8 +98,13 @@ bulletsCollWithMap() {
                         let nowX = this.shooter.game.walls.allWalls[i].x;
                         let nowY = this.shooter.game.walls.allWalls[i].y;
                         this.shooter.game.walls.allWalls.splice(  this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX && x.y === nowY )  , 1);
+                       
+                         if(this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX + 16 && x.y === nowY) > -1  ){
                         this.shooter.game.walls.allWalls.splice(  this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX + 16 && x.y === nowY )  , 1);
+                         }
+                         if(this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX - 16 && x.y === nowY) > -1  ){
                         this.shooter.game.walls.allWalls.splice(  this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX - 16 && x.y === nowY )  , 1);
+                         }
                         break;
                      }
                              if(this.dyPresent === 0) {
@@ -108,9 +113,14 @@ bulletsCollWithMap() {
                         let nowX = this.shooter.game.walls.allWalls[i].x;
                         let nowY = this.shooter.game.walls.allWalls[i].y;
                         this.shooter.game.walls.allWalls.splice(  this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX && x.y === nowY )  , 1);
+                       
+                        if(this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX  && x.y === nowY + 16) > -1  ){
                         this.shooter.game.walls.allWalls.splice(  this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX  && x.y === nowY + 16)  , 1);
+                        }
+                        if(this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX  && x.y === nowY - 16) > -1  ){
                         this.shooter.game.walls.allWalls.splice(  this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX  && x.y === nowY - 16)  , 1);
                         break;
+                        }
                       }
                     }
             }

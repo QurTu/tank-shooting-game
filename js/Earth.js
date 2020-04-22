@@ -11,6 +11,7 @@
          this.img = document.querySelector('img');
          this.EarthPlace();
          this.img.onload = this.renderEarth();
+         this.update();
     }
     renderEarth() {
         this.ctx.drawImage(this.img, this.x , this.y, this.EarthHeight, this.EarthWidth);
@@ -19,4 +20,10 @@
         this.x = this.widthCanvas / 2 - this.EarthWidth / 2 ;
         this.y = this.heightCanvas - this.EarthHeight;
     }
+    update() {
+        requestAnimationFrame((e) => this.update());
+        this.renderEarth();
+        
+    }
+
 }

@@ -305,7 +305,6 @@ playerAndEnemyCollision() {
                 }  
              }
     }
-    console.log(this.collision);
     return this.collision;
 }
 
