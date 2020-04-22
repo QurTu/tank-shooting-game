@@ -27,13 +27,17 @@ update() {
     
 }
 WinStartNewLvl() {
-    if(this.game.gameOutCome === 1) {
-        document.querySelector('.game').innerHTML = '';
+    if(this.game.gameOutCome === 1) {      
+    while ( document.querySelector('.game').firstChild) {
+    document.querySelector('.game').removeChild( document.querySelector('.game').lastChild);
+  }
         this.startLvl();
     }
     if(this.game.gameOutCome === -1) {
-        this.alive = 0;
-        document.querySelector('.game').innerHTML = '';
+        this.alive = 0;      
+     while ( document.querySelector('.game').firstChild) {
+    document.querySelector('.game').removeChild( document.querySelector('.game').lastChild);
+  }
     }
 
 }

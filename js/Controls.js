@@ -5,7 +5,6 @@
          this.gameDOM = document.querySelector('.game');
      }
      renderControls(){
-         console.log('veikiu');
         if(this.player === 1) {
             let HTML = `<div class = "control"> 
             <div class="palyer1-controls">  
