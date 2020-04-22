@@ -43,7 +43,7 @@ import Bullet from './bullets.js';
 
      // --------------- BOT movment derection generator --------------------
     DirectionGenerator() {
-        if(this.deadOrAlive === 1) {
+        if(this.deadOrAlive === 1 && this.game.gameOutCome === 0) {
         switch(Math.ceil(Math.random() * 4)) {
             case 1:
               this.dx = 0;
@@ -77,7 +77,7 @@ import Bullet from './bullets.js';
 
     updateReq() {
         
-            if(this.deadOrAlive === 1) {
+            if(this.deadOrAlive === 1 && this.game.gameOutCome === 0) {
             requestAnimationFrame((e) => this.updateReq());
             this.update();
             }
@@ -91,6 +91,11 @@ import Bullet from './bullets.js';
             this.hittingWall();
             this.updateReDraw();
             this.updateBulletArr();
+            this.enemyAndEnemyBullets();
+            this.hittingPlayer1();
+            if(this.game.playerNumb === 2) {
+                this.hittingPlayer2() 
+        }
             this.EnemyDead();
         }
     
@@ -133,7 +138,8 @@ import Bullet from './bullets.js';
         
         // bullet generator - need some work
         BulletGenerator( ) {
-            if(this.deadOrAlive === 1) {
+            if(this.bulletArr.length < 1) {
+            if(this.deadOrAlive === 1 && this.game.gameOutCome === 0) {
             switch(Math.ceil(Math.random() * 4)) {
               case 1:
                     this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this )) ;
@@ -149,6 +155,7 @@ import Bullet from './bullets.js';
                   break;
             }
       }
+    }
     }
 
       // ---------------------- Wall Collison -------------------------------------
@@ -171,7 +178,7 @@ import Bullet from './bullets.js';
                  }
         }
         return this.collision;
-    }
+ }
     SideColision(array) {
         for( let i = 0 ; i < array.length; i++) {
             if ( array[i] > 4) {
@@ -179,7 +186,6 @@ import Bullet from './bullets.js';
         }
         return 3;  
     }
-
     hittingWall() {
         if(this.WallsCollision().includes(1)) { 
            this.newY += Math.abs(this.dy);
@@ -194,6 +200,94 @@ import Bullet from './bullets.js';
             this.newX = this.SideColision(this.WallsCollision());
         }
     }
+
+    // ...................this. enemy and player1 collsion  ......................................
+    CollisionWithPlayer1() {
+        this.collision= [];
+                let dx=(this.x + 48 /2)-(this.game.player1.x + 48/2);
+                let dy=(this.y + 48 /2) -  (this.game.player1.y + 48 /2);
+                let width=(48 + 48) /  2;
+                let height=(48 + 48) / 2;
+                let crossWidth=width*dy;
+                let crossHeight=height*dx;
+                if(Math.abs(dx)<=width && Math.abs(dy)<=height){
+                    if(crossWidth>crossHeight){
+                        this.collision.push((crossWidth>(-crossHeight))?1:2);
+                    }else{
+                        this.collision.push((crossWidth>-(crossHeight))? this.game.player1.x +16  : 4);
+                    }  
+                 }
+        return this.collision;
+ }
+ hittingPlayer1() {
+    if(this.CollisionWithPlayer1().includes(1)) { 
+       this.newY += Math.abs(this.dy);
+    }
+    if(this.CollisionWithPlayer1().includes(4)) {
+       this.newY -= this.dy;
+    }
+    if(this.CollisionWithPlayer1().includes(2)) {
+       this.newX -= this.dx;
+    }
+    if(  this.SideColision(this.CollisionWithPlayer1() ) > 4 ) {
+        this.newX = this.SideColision(this.CollisionWithPlayer1());
+    }
+}
+
+
+// ...................this. enemy and player2 collsion  ......................................
+CollisionWithPlayer2() {
+    this.collision= [];
+            let dx=(this.x + 48 /2)-(this.game.player2.x + 48/2);
+            let dy=(this.y + 48 /2) -  (this.game.player2.y + 48 /2);
+            let width=(48 + 48) /  2;
+            let height=(48 + 48) / 2;
+            let crossWidth=width*dy;
+            let crossHeight=height*dx;
+            if(Math.abs(dx)<=width && Math.abs(dy)<=height){
+                if(crossWidth>crossHeight){
+                    this.collision.push((crossWidth>(-crossHeight))?1:2);
+                }else{
+                    this.collision.push((crossWidth>-(crossHeight))? this.game.player2.x +16  : 4);
+                }  
+             }
+    return this.collision;
+}
+hittingPlayer2() {
+if(this.CollisionWithPlayer2().includes(1)) { 
+   this.newY += Math.abs(this.dy);
+}
+if(this.CollisionWithPlayer2().includes(4)) {
+   this.newY -= this.dy;
+}
+if(this.CollisionWithPlayer2().includes(2)) {
+   this.newX -= this.dx;
+}
+if(  this.SideColision(this.CollisionWithPlayer2() ) > 4 ) {
+    this.newX = this.SideColision(this.CollisionWithPlayer2());
+}
+}
+//................... enemy with enemy bullets collsion.............................
+
+enemyAndEnemyBullets() { 
+     
+    for( let i = 0; i < this.game.enemyBulletsArray.length; i++) {
+        if (this.game.enemyBulletsArray[i].x        < this.x + 48 &&
+            this.game.enemyBulletsArray[i].x + 8   > this.x  &&
+            this.game.enemyBulletsArray[i].y        <  this.y + 48 &&
+            this.game.enemyBulletsArray[i].y + 8   >  this.y)  {
+                            this.game.enemyBulletsArray[i].deadOrAlive = 0;
+                            this.game.ctx.clearRect(this.game.enemyBulletsArray[i].x, this.game.enemyBulletsArray[i].y, 8, 8);
+                            
+                            
+
+ }
+    }
+
+
+
+}
+
 
  // --------------------Enemy killed -----------------------
 

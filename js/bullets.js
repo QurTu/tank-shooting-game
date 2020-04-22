@@ -48,7 +48,7 @@ updateReDraw() {
  }
 
  updateReq() {
-    if( this.deadOrAlive === 1) {
+    if( this.deadOrAlive === 1 && this.shooter.game.gameOutCome === 0) {
     requestAnimationFrame((e) => this.updateReq());
         this.update();
         this.dxPresent = this.dx;
@@ -56,6 +56,7 @@ updateReDraw() {
         this.bulletsCollWithMap();
         this.WallsAndBulletCollision();
         this.BulletToBulletCollision();
+        this.BulletCollisionWithEarth();
         }
 }  
 
@@ -134,6 +135,22 @@ for( let j = 0 ; j < this.shooter.game.allBullets.length; j++) {
     }
     }
 }
+
+BulletCollisionWithEarth() {
+    
+     
+        
+           if (this.shooter.game.earth.x        < this.x + this.buletsize &&
+            this.shooter.game.earth.x + 48   > this.x  &&
+            this.shooter.game.earth.y        <  this.y + this.buletsize &&
+            this.shooter.game.earth.y + 48   >  this.y )  {
+                this.shooter.ctx.clearRect(this.x , this.y , this.buletsize, this.buletsize );
+                this.deadOrAlive = 0;
+                this.shooter.game.gameOutCome = -1;
+            } 
+        }
+        
+    
 
 
 
