@@ -1,21 +1,12 @@
-import Game from './Game.js';
+
+import AllGame from './AllGame.js';
 
 
  const gameDOM = document.querySelector('.game');
  gameStart();
 
  
-
-
-
-
-
-
-
-
- 
 function gameStart() {
-    console.log('suveikiau')
     let  HTML = ` <div class="start"> <div class='start-menu'>
     <div class=" btn one-player"> START GAME : ONE PLAYER</div>
     <div class=" btn two-players">START GAME : TWO PLAYER</div>
@@ -24,17 +15,25 @@ function gameStart() {
    gameDOM.insertAdjacentHTML("afterbegin" , HTML) ;
     document.querySelector('.one-player').addEventListener('click', function() {
         gameDOM.innerHTML = '';
-        const game = new Game(1, 1);     
+        const game = new AllGame(1);  
+        update(game);   
       }) 
     document.querySelector('.two-players').addEventListener('click', function() {
       gameDOM.innerHTML = '';
-      const game = new Game(1, 2);     
+      const game = new AllGame(2);   
+      update(game);  
 }) 
 
 }
 
 
+function update(game) {
+    requestAnimationFrame((e) => update(game));
+    if(game.alive === 0) {
+        gameStart()
+    }
 
+}
 
 
 
