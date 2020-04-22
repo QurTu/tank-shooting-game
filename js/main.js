@@ -13,12 +13,12 @@ function gameStart() {
     <div class=" btn create-lvl">CREATE LEVEL (Commint soon)</div>
 </div> ` ;
    gameDOM.insertAdjacentHTML("afterbegin" , HTML) ;
-    document.querySelector('.one-player').addEventListener('click', function() {
+    document.querySelector('.one-player').onclick = () => {
         gameDOM.innerHTML = '';
         const game = new AllGame(1);  
         update(game);   
-      }) 
-    document.querySelector('.two-players').addEventListener('click', function() {
+      }
+    document.querySelector('.two-players').addEventListener('click', ()  =>{
       gameDOM.innerHTML = '';
       const game = new AllGame(2);   
       update(game);  
