@@ -13,8 +13,8 @@ body {
 .game{
     position: relative;
     display: inline-block;
-    margin-top: 100px;
-    margin-left: 50px;
+    margin-top: calc(50vh - 312px);
+    margin-left: calc(50vw - 558px);
     width: 1116px;
     height: 624px;
     border: solid 2px black;
