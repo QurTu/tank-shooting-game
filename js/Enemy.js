@@ -16,6 +16,7 @@ import Bullet from './bullets.js';
         this.bullety = 0;
         this.bulletArr = [];
         this.alive = 1;
+        this.deadOrAlive = 1;
         this.imgFrieza = document.querySelector('.frieza');
         this.imgCell = document.querySelector('.cell');
         this.imgbuu = document.querySelector('.buu');
@@ -42,6 +43,7 @@ import Bullet from './bullets.js';
 
      // --------------- BOT movment derection generator --------------------
     DirectionGenerator() {
+        if(this.deadOrAlive === 1) {
         switch(Math.ceil(Math.random() * 4)) {
             case 1:
               this.dx = 0;
@@ -69,24 +71,31 @@ import Bullet from './bullets.js';
               break;
         }
   }
+}
 
   // ----------------update section ---------------------------
 
     updateReq() {
-        if(this.alive === 1) {
+        
+            if(this.deadOrAlive === 1) {
             requestAnimationFrame((e) => this.updateReq());
             this.update();
+            }
         }
-    }  
+      
         update() {
+            
             this.newX += this.dx;
             this.newY += this.dy;
             this.stayInMap();
             this.hittingWall();
             this.updateReDraw();
-            this.updateBulletArr()
+            this.updateBulletArr();
+            this.EnemyDead();
         }
+    
         updateReDraw() {
+            
             this.game.ctx.clearRect(this.x, this.y, 48, 48 );
             this.x = this.newX;
              this.y = this.newY;
@@ -96,7 +105,8 @@ import Bullet from './bullets.js';
                 this.game.ctx.drawImage(this.imgCell, this.newX , this.newY, 48, 48);}
             if( this.type === 3) {
                 this.game.ctx.drawImage(this.imgbuu, this.newX , this.newY, 48, 48);}
-        }
+        
+    }
 
         // removes bullet if it left canvas.
         updateBulletArr() {
@@ -123,6 +133,7 @@ import Bullet from './bullets.js';
         
         // bullet generator - need some work
         BulletGenerator( ) {
+            if(this.deadOrAlive === 1) {
             switch(Math.ceil(Math.random() * 4)) {
               case 1:
                     this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this )) ;
@@ -138,6 +149,7 @@ import Bullet from './bullets.js';
                   break;
             }
       }
+    }
 
       // ---------------------- Wall Collison -------------------------------------
 
@@ -183,16 +195,30 @@ import Bullet from './bullets.js';
         }
     }
 
+ // --------------------Enemy killed -----------------------
 
+ EnemyDead() { 
+     
+    for( let i = 0; i < this.game.playersBulletsAr.length; i++) {
+        if (this.game.playersBulletsAr[i].x        < this.x + 48 &&
+            this.game.playersBulletsAr[i].x + 8   > this.x  &&
+            this.game.playersBulletsAr[i].y        <  this.y + 48 &&
+            this.game.playersBulletsAr[i].y + 8   >  this.y)  {
+                            this.deadOrAlive = 0;
+                            this.game.playersBulletsAr[i].deadOrAlive = 0;
+                            this.game.ctx.clearRect(this.game.playersBulletsAr[i].x, this.game.playersBulletsAr[i].y, 8, 8);
+                            this.game.ctx.clearRect(this.x, this.y, 48, 48);
+                            
 
-
+ }
+    }
 
 
 
 }
       
     
-    
+}   
 
 
 

@@ -27,6 +27,7 @@ class Game  {
        this.renderGame();
        setInterval(() => this.RenderEnemys(), 100);
        this.updateReq();
+      
 
     } 
    
@@ -53,6 +54,9 @@ class Game  {
             this.player2 = new Player(  2 , this);
         }
     }
+
+  
+//  ------------------------ENEMYS----------------------------------------
 RenderEnemys() {
          this.RenderWaveOfenemys();
 }
@@ -65,6 +69,16 @@ RenderWaveOfenemys()  {
     }
 }
 
+ // check if enemys are dead and remove from array
+ AreTheyDead() {
+    for( let i = 0 ; i <this.EnemyArray.length; i++) {
+        if(this.EnemyArray[i].deadOrAlive === 0) {
+             this.EnemyArray.splice(this.EnemyArray[i], 1);
+          }
+     }
+  }
+
+
 
 // -----------------------collision detection------------------------------
 
@@ -74,6 +88,8 @@ updateReq() {
             this.PlayerWithTeamBullets( );
             this.enemyBullets() ;
             this.playersBullets();
+            this.AreTheyDead();
+            
 
         }
         

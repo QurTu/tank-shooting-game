@@ -84,16 +84,12 @@ bulletsCollWithMap() {
             this.shooter.game.walls.allWalls[i].y + 16    >  this.yNew )  {
                      this.deadOrAlive = 0;
                      this.shooter.ctx.clearRect(this.x, this.y, this.buletsize, this.buletsize );
-                     console.log('veikiu');
-                     console.log(this.shooter.game.walls.allWalls[i].t);
                      if(this.shooter.game.walls.allWalls[i].t === 2) {
-                         console.log('veikiu');
                          this.shooter.ctx.fillStyle = this.shooter.ctx.createPattern(this.img, 'repeat');
                         this.img.onload = this.shooter.ctx.fillRect(this.shooter.game.walls.allWalls[i].x, this.shooter.game.walls.allWalls[i].y, 16, 16 );
                         this.shooter.ctx.fillStyle = "#FF0000";
                     }
                      if(this.shooter.game.walls.allWalls[i].t === 1) {
-                        console.log('veikiu');
                         this.shooter.ctx.clearRect(this.shooter.game.walls.allWalls[i].x, this.shooter.game.walls.allWalls[i].y, 16, 16 );
                              if(this.dxPresent === 0 ) {
                         this.shooter.ctx.clearRect(this.shooter.game.walls.allWalls[i].x + 16, this.shooter.game.walls.allWalls[i].y, 16, 16 );
@@ -124,13 +120,11 @@ bulletsCollWithMap() {
 BulletToBulletCollision() {
     
 for( let j = 0 ; j < this.shooter.game.allBullets.length; j++) {
-    console.log ('veikiu55');
     if(this.shooter.game.allBullets[j] !== this) {
        if (this.shooter.game.allBullets[j].x        < this.x + this.buletsize &&
         this.shooter.game.allBullets[j].x + this.buletsize    > this.x  &&
         this.shooter.game.allBullets[j].y        <  this.y + this.buletsize &&
         this.shooter.game.allBullets[j].y + this.buletsize    >  this.y )  {
-            console.log('daznai');
             this.shooter.ctx.clearRect(this.shooter.game.allBullets[j].x , this.shooter.game.allBullets[j].y , this.buletsize, this.buletsize );
             this.shooter.game.allBullets[j].deadOrAlive = 0;
             this.shooter.ctx.clearRect(this.x , this.y , this.buletsize, this.buletsize );
@@ -138,10 +132,12 @@ for( let j = 0 ; j < this.shooter.game.allBullets.length; j++) {
             break;
         } 
     }
-    
     }
-
 }
+
+
+
+
 
     }
 
