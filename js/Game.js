@@ -3,6 +3,7 @@ import  Earth from './Earth.js';
 import  Walls from './Walls.js';
 import Player from './Player.js';
 import Enemy from './Enemy.js';
+import Controls from './Controls.js';
 
  export default class Game  {
     constructor( level, playerNumb) {
@@ -23,6 +24,7 @@ import Enemy from './Enemy.js';
         this.playersBulletsAr = [];
         this.shortArray = [];
         this.gameOutCome = 0;
+        this.controls ;
         
         
  
@@ -37,6 +39,7 @@ import Enemy from './Enemy.js';
         this.renderCanvas();
         this.earth = new Earth(this);
         this.walls = new Walls(this);
+        this.controls = new Controls(this.playerNumb);
         this.initPlayers();
         this.RenderEnemys();
     }
@@ -138,7 +141,12 @@ enemyBullets() {
     this.enemyBulletsArray = this.shortArray;  
 }
 playersBullets() {
+    if(this.playerNumb === 1) {
+        this.playersBulletsAr = this.player1.bulletArr;
+    }
+    if(this.playerNumb === 2) {
     this.playersBulletsAr = this.player2.bulletArr.concat(this.player1.bulletArr);
+    }
     this.allBullets = this.playersBulletsAr.concat(this.enemyBulletsArray);
 }
 
