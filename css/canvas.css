@@ -1,4 +1,37 @@
 canvas  {
-    border: 1px black solid;
+    border: 2px black solid;
+    background-color: bisque;
 }
+.control {
+    position: absolute;
+    text-align: center;
+    height: 312px;
+    width: 295px;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    background-color: #636363;
+    border: 2px black solid;
+}
+    .palyer1-controls {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+        .palyer1-controls > img {
+            float: left;
+            width: 50%;
+        }
+        .palyer1-controls >h1{
+        float: left;
+        width: 50%;
+        padding-top: 30px;
+        word-break: keep-all;
+    }
+    .palyer2-controls {
+        display: inline-block;
+        width: 100%;
+    }
+
+
 

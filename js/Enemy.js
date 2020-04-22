@@ -16,6 +16,7 @@ import Bullet from './bullets.js';
         this.bullety = 0;
         this.bulletArr = [];
         this.alive = 1;
+        this.deadOrAlive = 1;
         this.imgFrieza = document.querySelector('.frieza');
         this.imgCell = document.querySelector('.cell');
         this.imgbuu = document.querySelector('.buu');
@@ -42,6 +43,7 @@ import Bullet from './bullets.js';
 
      // --------------- BOT movment derection generator --------------------
     DirectionGenerator() {
+        if(this.deadOrAlive === 1 && this.game.gameOutCome === 0) {
         switch(Math.ceil(Math.random() * 4)) {
             case 1:
               this.dx = 0;
@@ -69,24 +71,36 @@ import Bullet from './bullets.js';
               break;
         }
   }
+}
 
   // ----------------update section ---------------------------
 
     updateReq() {
-        if(this.alive === 1) {
+        
+            if(this.deadOrAlive === 1 && this.game.gameOutCome === 0) {
             requestAnimationFrame((e) => this.updateReq());
             this.update();
+            }
         }
-    }  
+      
         update() {
+            
             this.newX += this.dx;
             this.newY += this.dy;
             this.stayInMap();
             this.hittingWall();
             this.updateReDraw();
-            this.updateBulletArr()
+            this.updateBulletArr();
+            this.enemyAndEnemyBullets();
+            this.hittingPlayer1();
+            if(this.game.playerNumb === 2) {
+                this.hittingPlayer2() 
         }
+            this.EnemyDead();
+        }
+    
         updateReDraw() {
+            
             this.game.ctx.clearRect(this.x, this.y, 48, 48 );
             this.x = this.newX;
              this.y = this.newY;
@@ -96,7 +110,8 @@ import Bullet from './bullets.js';
                 this.game.ctx.drawImage(this.imgCell, this.newX , this.newY, 48, 48);}
             if( this.type === 3) {
                 this.game.ctx.drawImage(this.imgbuu, this.newX , this.newY, 48, 48);}
-        }
+        
+    }
 
         // removes bullet if it left canvas.
         updateBulletArr() {
@@ -123,6 +138,8 @@ import Bullet from './bullets.js';
         
         // bullet generator - need some work
         BulletGenerator( ) {
+            if(this.bulletArr.length < 1) {
+            if(this.deadOrAlive === 1 && this.game.gameOutCome === 0) {
             switch(Math.ceil(Math.random() * 4)) {
               case 1:
                     this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this )) ;
@@ -138,6 +155,8 @@ import Bullet from './bullets.js';
                   break;
             }
       }
+    }
+    }
 
       // ---------------------- Wall Collison -------------------------------------
 
@@ -159,7 +178,7 @@ import Bullet from './bullets.js';
                  }
         }
         return this.collision;
-    }
+ }
     SideColision(array) {
         for( let i = 0 ; i < array.length; i++) {
             if ( array[i] > 4) {
@@ -167,7 +186,6 @@ import Bullet from './bullets.js';
         }
         return 3;  
     }
-
     hittingWall() {
         if(this.WallsCollision().includes(1)) { 
            this.newY += Math.abs(this.dy);
@@ -183,16 +201,118 @@ import Bullet from './bullets.js';
         }
     }
 
+    // ...................this. enemy and player1 collsion  ......................................
+    CollisionWithPlayer1() {
+        this.collision= [];
+                let dx=(this.x + 48 /2)-(this.game.player1.x + 48/2);
+                let dy=(this.y + 48 /2) -  (this.game.player1.y + 48 /2);
+                let width=(48 + 48) /  2;
+                let height=(48 + 48) / 2;
+                let crossWidth=width*dy;
+                let crossHeight=height*dx;
+                if(Math.abs(dx)<=width && Math.abs(dy)<=height){
+                    if(crossWidth>crossHeight){
+                        this.collision.push((crossWidth>(-crossHeight))?1:2);
+                    }else{
+                        this.collision.push((crossWidth>-(crossHeight))? this.game.player1.x +16  : 4);
+                    }  
+                 }
+        return this.collision;
+ }
+ hittingPlayer1() {
+    if(this.CollisionWithPlayer1().includes(1)) { 
+       this.newY += Math.abs(this.dy);
+    }
+    if(this.CollisionWithPlayer1().includes(4)) {
+       this.newY -= this.dy;
+    }
+    if(this.CollisionWithPlayer1().includes(2)) {
+       this.newX -= this.dx;
+    }
+    if(  this.SideColision(this.CollisionWithPlayer1() ) > 4 ) {
+        this.newX = this.SideColision(this.CollisionWithPlayer1());
+    }
+}
+
+
+// ...................this. enemy and player2 collsion  ......................................
+CollisionWithPlayer2() {
+    this.collision= [];
+            let dx=(this.x + 48 /2)-(this.game.player2.x + 48/2);
+            let dy=(this.y + 48 /2) -  (this.game.player2.y + 48 /2);
+            let width=(48 + 48) /  2;
+            let height=(48 + 48) / 2;
+            let crossWidth=width*dy;
+            let crossHeight=height*dx;
+            if(Math.abs(dx)<=width && Math.abs(dy)<=height){
+                if(crossWidth>crossHeight){
+                    this.collision.push((crossWidth>(-crossHeight))?1:2);
+                }else{
+                    this.collision.push((crossWidth>-(crossHeight))? this.game.player2.x +16  : 4);
+                }  
+             }
+    return this.collision;
+}
+hittingPlayer2() {
+if(this.CollisionWithPlayer2().includes(1)) { 
+   this.newY += Math.abs(this.dy);
+}
+if(this.CollisionWithPlayer2().includes(4)) {
+   this.newY -= this.dy;
+}
+if(this.CollisionWithPlayer2().includes(2)) {
+   this.newX -= this.dx;
+}
+if(  this.SideColision(this.CollisionWithPlayer2() ) > 4 ) {
+    this.newX = this.SideColision(this.CollisionWithPlayer2());
+}
+}
+//................... enemy with enemy bullets collsion.............................
+
+enemyAndEnemyBullets() { 
+     
+    for( let i = 0; i < this.game.enemyBulletsArray.length; i++) {
+        if (this.game.enemyBulletsArray[i].x        < this.x + 48 &&
+            this.game.enemyBulletsArray[i].x + 8   > this.x  &&
+            this.game.enemyBulletsArray[i].y        <  this.y + 48 &&
+            this.game.enemyBulletsArray[i].y + 8   >  this.y)  {
+                            this.game.enemyBulletsArray[i].deadOrAlive = 0;
+                            this.game.ctx.clearRect(this.game.enemyBulletsArray[i].x, this.game.enemyBulletsArray[i].y, 8, 8);
+                            
+                            
+
+ }
+    }
 
 
 
+}
+
+
+ // --------------------Enemy killed -----------------------
+
+ EnemyDead() { 
+     
+    for( let i = 0; i < this.game.playersBulletsAr.length; i++) {
+        if (this.game.playersBulletsAr[i].x        < this.x + 48 &&
+            this.game.playersBulletsAr[i].x + 8   > this.x  &&
+            this.game.playersBulletsAr[i].y        <  this.y + 48 &&
+            this.game.playersBulletsAr[i].y + 8   >  this.y)  {
+                            this.deadOrAlive = 0;
+                            this.game.playersBulletsAr[i].deadOrAlive = 0;
+                            this.game.ctx.clearRect(this.game.playersBulletsAr[i].x, this.game.playersBulletsAr[i].y, 8, 8);
+                            this.game.ctx.clearRect(this.x, this.y, 48, 48);
+                            
+
+ }
+    }
 
 
 
 }
       
     
-    
+}   
 
 
 

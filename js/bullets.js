@@ -48,7 +48,7 @@ updateReDraw() {
  }
 
  updateReq() {
-    if( this.deadOrAlive === 1) {
+    if( this.deadOrAlive === 1 && this.shooter.game.gameOutCome === 0) {
     requestAnimationFrame((e) => this.updateReq());
         this.update();
         this.dxPresent = this.dx;
@@ -56,6 +56,7 @@ updateReDraw() {
         this.bulletsCollWithMap();
         this.WallsAndBulletCollision();
         this.BulletToBulletCollision();
+        this.BulletCollisionWithEarth();
         }
 }  
 
@@ -84,16 +85,12 @@ bulletsCollWithMap() {
             this.shooter.game.walls.allWalls[i].y + 16    >  this.yNew )  {
                      this.deadOrAlive = 0;
                      this.shooter.ctx.clearRect(this.x, this.y, this.buletsize, this.buletsize );
-                     console.log('veikiu');
-                     console.log(this.shooter.game.walls.allWalls[i].t);
                      if(this.shooter.game.walls.allWalls[i].t === 2) {
-                         console.log('veikiu');
                          this.shooter.ctx.fillStyle = this.shooter.ctx.createPattern(this.img, 'repeat');
                         this.img.onload = this.shooter.ctx.fillRect(this.shooter.game.walls.allWalls[i].x, this.shooter.game.walls.allWalls[i].y, 16, 16 );
                         this.shooter.ctx.fillStyle = "#FF0000";
                     }
                      if(this.shooter.game.walls.allWalls[i].t === 1) {
-                        console.log('veikiu');
                         this.shooter.ctx.clearRect(this.shooter.game.walls.allWalls[i].x, this.shooter.game.walls.allWalls[i].y, 16, 16 );
                              if(this.dxPresent === 0 ) {
                         this.shooter.ctx.clearRect(this.shooter.game.walls.allWalls[i].x + 16, this.shooter.game.walls.allWalls[i].y, 16, 16 );
@@ -101,8 +98,13 @@ bulletsCollWithMap() {
                         let nowX = this.shooter.game.walls.allWalls[i].x;
                         let nowY = this.shooter.game.walls.allWalls[i].y;
                         this.shooter.game.walls.allWalls.splice(  this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX && x.y === nowY )  , 1);
+                       
+                         if(this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX + 16 && x.y === nowY) > -1  ){
                         this.shooter.game.walls.allWalls.splice(  this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX + 16 && x.y === nowY )  , 1);
+                         }
+                         if(this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX - 16 && x.y === nowY) > -1  ){
                         this.shooter.game.walls.allWalls.splice(  this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX - 16 && x.y === nowY )  , 1);
+                         }
                         break;
                      }
                              if(this.dyPresent === 0) {
@@ -111,9 +113,14 @@ bulletsCollWithMap() {
                         let nowX = this.shooter.game.walls.allWalls[i].x;
                         let nowY = this.shooter.game.walls.allWalls[i].y;
                         this.shooter.game.walls.allWalls.splice(  this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX && x.y === nowY )  , 1);
+                       
+                        if(this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX  && x.y === nowY + 16) > -1  ){
                         this.shooter.game.walls.allWalls.splice(  this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX  && x.y === nowY + 16)  , 1);
+                        }
+                        if(this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX  && x.y === nowY - 16) > -1  ){
                         this.shooter.game.walls.allWalls.splice(  this.shooter.game.walls.allWalls.findIndex(x => x.x === nowX  && x.y === nowY - 16)  , 1);
                         break;
+                        }
                       }
                     }
             }
@@ -124,13 +131,11 @@ bulletsCollWithMap() {
 BulletToBulletCollision() {
     
 for( let j = 0 ; j < this.shooter.game.allBullets.length; j++) {
-    console.log ('veikiu55');
     if(this.shooter.game.allBullets[j] !== this) {
        if (this.shooter.game.allBullets[j].x        < this.x + this.buletsize &&
         this.shooter.game.allBullets[j].x + this.buletsize    > this.x  &&
         this.shooter.game.allBullets[j].y        <  this.y + this.buletsize &&
         this.shooter.game.allBullets[j].y + this.buletsize    >  this.y )  {
-            console.log('daznai');
             this.shooter.ctx.clearRect(this.shooter.game.allBullets[j].x , this.shooter.game.allBullets[j].y , this.buletsize, this.buletsize );
             this.shooter.game.allBullets[j].deadOrAlive = 0;
             this.shooter.ctx.clearRect(this.x , this.y , this.buletsize, this.buletsize );
@@ -138,10 +143,28 @@ for( let j = 0 ; j < this.shooter.game.allBullets.length; j++) {
             break;
         } 
     }
-    
     }
-
 }
+
+BulletCollisionWithEarth() {
+    
+     
+        
+           if (this.shooter.game.earth.x        < this.x + this.buletsize &&
+            this.shooter.game.earth.x + 48   > this.x  &&
+            this.shooter.game.earth.y        <  this.y + this.buletsize &&
+            this.shooter.game.earth.y + 48   >  this.y )  {
+                this.shooter.ctx.clearRect(this.x , this.y , this.buletsize, this.buletsize );
+                this.deadOrAlive = 0;
+                this.shooter.game.gameOutCome = -1;
+            } 
+        }
+        
+    
+
+
+
+
 
     }
 

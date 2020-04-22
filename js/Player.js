@@ -21,18 +21,19 @@ export default class Player {
          this.dMax = 4;
          this.dMin = -4;
          this.d0 = 0;
-         this.alive = 1;
+         this.hp = 2 ;
+         this.deadOrAlive = 1;
          this.bulletArr = []; 
          this.firstSpawn() ;
          this.eventLisiner();
          this.updateReq();
+         
         
     }
 
     // ------------------------SPAWNING PLAYER ----------------------------
   // first spawn
     firstSpawn() {
-        console.log(this.playerNumb);
         this.spawnPlayer(); 
           if( this.playerNumb === 2)    {
                this.spawnPlayer2();
@@ -75,15 +76,18 @@ export default class Player {
         this.pressedKeys[e.keyCode] = false;
     }
     eventLisiner() {
+        if(this.deadOrAlive === 1 && this.game.gameOutCome === 0) {
         window.addEventListener('keydown' , (e)  => this.update(e), false);
         window.addEventListener('keyup', (e) => this.keyUp(e), false);
    }
+}
  
    
 
    // ------------ redraw after moving-----------------------------
+   
 updateDraw() {
-    
+    if(this.deadOrAlive === 1 && this.game.gameOutCome === 0) {
     //player1
     if(this.playerNumb === 1) {
     this.ctx.clearRect(this.playerPozition.x, this.playerPozition.y, this.width, this.width);
@@ -97,11 +101,14 @@ updateDraw() {
     this.playerPosition = { x:this.x, y:this.y };  
     } 
 }
+}
     // update bulletArray
     updateReq() {
+        if(this.deadOrAlive === 1 && this.game.gameOutCome === 0) {
             requestAnimationFrame((e) => this.updateReq());
-            this.updateBulletArr() 
-         
+            this.updateBulletArr() ;
+            this.PlayerAndEnemyBullets();
+        }
     }  
     updateBulletArr() {
         for(let i = 0 ; i < this.bulletArr.length ; i++) {
@@ -113,24 +120,25 @@ updateDraw() {
 
 
     // ------------------------ PLayer 1 movments --------------------------
+    
    update(e) {
+    
        this.pressedKeys[e.keyCode] = true;
-       
+   
+
+       if(this.deadOrAlive === 1 && this.game.gameOutCome === 0) {
        //shooting
       if( this.playerNumb === 1)  {
          if (this.pressedKeys[32]) {
+             if(this.bulletArr < 1) {
              this.bulletArr.push( new Bullet(this.x , this.y, this.dx , this.dy , this ));  } 
-             
-     
-    
-    
-
+         }
             //move up
     if (this.pressedKeys[87]) {
         this.dx = this.d0;
         this.dy = this.dMin;
         this.y -= 6; 
-        if (this.y < 0 || this.playerAndWallsCollision().includes(1) )  {
+        if (this.y < 0 || this.playerAndWallsCollision().includes(1) || this.playerAndEnemyCollision().includes(1) )  {
             this.y += 6; }
         this.updateDraw();}
 
@@ -139,7 +147,7 @@ updateDraw() {
         this.dx = this.d0;
         this.dy = this.dMax;
         this.y += 6;
-        if (this.y > this.game.CanvasHeight - this.height || this.playerAndWallsCollision().includes(4)) {
+        if (this.y > this.game.CanvasHeight - this.height || this.playerAndWallsCollision().includes(4)|| this.playerAndEnemyCollision().includes(4) ) {
             this.y -= 6;}
         this.updateDraw();}
 
@@ -148,7 +156,7 @@ updateDraw() {
         this.dx = this.dMax;
         this.dy = this.d0;
         this.x += 6;
-        if(this.playerAndWallsCollision().includes(2)) {
+        if(this.playerAndWallsCollision().includes(2) || this.playerAndEnemyCollision().includes(2) ) {
             this.x -= 6;}
         if(this.x > this.game.CanvasWidth - this.width) {
             this.x = this.game.CanvasWidth - this.width;}
@@ -161,28 +169,38 @@ updateDraw() {
         this.x -= 6; 
         if(this.x < 0 ) {
             this.x = 0;}
+        if(this.SideColision(this.playerAndEnemyCollision()) > 4 ) {
+            this.x = this.SideColision(this.playerAndEnemyCollision())
+            }
         if(this.SideColision(this.playerAndWallsCollision()) > 4 ) {
             this.x = this.SideColision(this.playerAndWallsCollision())
             }
+
+
         
         this.updateDraw();}
-
-
         }
+        }
+    
+        
+    
 
 // ------------------------ PLayer 2 movments --------------------------
 
      // player 2 shooting
+     if(this.deadOrAlive === 1 && this.game.gameOutCome === 0) {
  if(this.playerNumb === 2) {
     if (this.pressedKeys[107]) {
+        if(this.bulletArr < 1) {
         this.bulletArr.push( new Bullet(this.x , this.y, this.dx , this.dy , this ));} 
-
+        }
         //player2 up
     if ( this.pressedKeys[104]) {
         this.dx = this.d0;
         this.dy = this.dMin;
         this.y -= 6;
-        if (this.y < 0 || this.playerAndWallsCollision().includes(1)) {
+        if (this.y < 0 || this.playerAndWallsCollision().includes(1) ||
+         this.playerAndEnemyCollision().includes(1)) {
             this.y += 6;}
         this.updateDraw(); }
 
@@ -191,7 +209,8 @@ updateDraw() {
            this.dx = this.d0;
            this.dy = this.dMax;
             this.y += 6;
-        if (this.y > this.game.CanvasHeight - this.height || this.playerAndWallsCollision().includes(4)) {
+        if (this.y > this.game.CanvasHeight - this.height || this.playerAndWallsCollision().includes(4) ||
+          this.playerAndEnemyCollision().includes(4)) {
             this.y -= 6;}
         this.updateDraw();
     }
@@ -203,7 +222,7 @@ updateDraw() {
         this.x += 6;
         if(this.x > this.game.CanvasWidth - this.width) {
             this.x = this.game.CanvasWidth - this.width;};
-        if(this.playerAndWallsCollision().includes(2)) {
+        if(this.playerAndWallsCollision().includes(2) || this.playerAndEnemyCollision().includes(2)) {
             this.x -= 6;}
         this.updateDraw();}
 
@@ -217,7 +236,11 @@ updateDraw() {
         if(this.SideColision(this.playerAndWallsCollision()) > 4 ) {
             this.x = this.SideColision(this.playerAndWallsCollision())
             }
+        if(this.SideColision(this.playerAndWallsCollision()) > 4 ) {
+            this.x = this.SideColision(this.playerAndWallsCollision())
+            }
         this.updateDraw();}
+    }
 
     }
 
@@ -249,6 +272,42 @@ SideColision(array) {
     }
     return 3;  
 }
+
+// enemys can kill players
+PlayerAndEnemyBullets() {  
+    for( let i = 0; i < this.game.enemyBulletsArray.length; i++) {
+        if (this.game.enemyBulletsArray[i].x        < this.x + 48 &&
+            this.game.enemyBulletsArray[i].x + 8   > this.x  &&
+            this.game.enemyBulletsArray[i].y        <  this.y + 48 &&
+            this.game.enemyBulletsArray[i].y + 8   >  this.y)  {
+                            this.game.enemyBulletsArray[i].deadOrAlive = 0;
+                            this.game.ctx.clearRect(this.game.enemyBulletsArray[i].x, this.game.enemyBulletsArray[i].y, 8, 8);
+                            this.deadOrAlive = 0;
+                            this.game.ctx.clearRect(this.x, this.y, 48, 48);
+ }
+    }
+}
+// player and enemy collsion. cant go throw...
+playerAndEnemyCollision() {
+    this.collision= [];
+    for(let i =0; i < this.game.EnemyArray.length; i++) {
+            let dx=(this.x + 48 /2)-(this.game.EnemyArray[i].x + 48/2);
+            let dy=(this.y + 48 /2) -  (this.game.EnemyArray[i].y + 48 /2);
+            let width=(48 + 48) /  2;
+            let height=(48 + 48) / 2;
+            let crossWidth=width*dy;
+            let crossHeight=height*dx;
+            if(Math.abs(dx)<=width && Math.abs(dy)<=height){
+                if(crossWidth>crossHeight){
+                    this.collision.push((crossWidth>(-crossHeight))?1:2);
+                }else{
+                    this.collision.push((crossWidth>-(crossHeight))? this.game.EnemyArray[i].x +48  : 4);
+                }  
+             }
+    }
+    return this.collision;
+}
+
 
 
 
