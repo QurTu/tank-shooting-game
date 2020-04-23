@@ -1,5 +1,6 @@
 
   let level2 = [];
+  earthWallArrayBuilding();
      
  
  
@@ -16,6 +17,13 @@ RenderLenght( 48 * 15, 48, 16 , "toX" , 2);
 
 
 
+function earthWallArrayBuilding() {
+  RenderLenght( 48* 8 + 60, 624 - 48, 3 , "toY" , 1);
+  RenderLenght( 48* 8 + 60, 624 - 48 *2 , 3 , "toY" , 1);
+  RenderLenght( 48* 8 - 60, 624 - 48 *2 , 3 , "toY" , 1);
+  RenderLenght( 48* 8 - 60, 624 - 48  , 3 , "toY" , 1);
+  RenderLenght( 48* 8 - 8, 624 - 96  , 4 , "toY" , 1);
+}
 
 
 

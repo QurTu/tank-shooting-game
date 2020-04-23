@@ -27,10 +27,10 @@ export default class Bullet {
   bulletinitPlace() {
     if( this.dx > 0 && this.dy === 0) {
         this.x +=  48 + this.buletsize;
-        this.y +=  10;  }
+        this.y +=  24;  }
     if( this.dx < 0 && this.dy === 0) {
-        this.y +=  10;
-        this.x +=  - this.buletsize - 6;  }
+        this.y +=  24;
+        this.x +=  - this.buletsize ;  }
     if( this.dx === 0 && this.dy > 0) {
         this.x +=  24;
         this.y +=  48 + this.buletsize;  }

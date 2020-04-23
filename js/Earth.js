@@ -17,7 +17,7 @@
         this.ctx.drawImage(this.img, this.x , this.y, this.EarthHeight, this.EarthWidth);
     }
     EarthPlace(){
-        this.x = this.widthCanvas / 2 - this.EarthWidth / 2 ;
+        this.x = 48 *8 ;
         this.y = this.heightCanvas - this.EarthHeight;
     }
     update() {

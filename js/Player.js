@@ -48,7 +48,7 @@ export default class Player {
 }
 
         player1Place() {
-            this.x = 48 *6 ;
+            this.x = 48 *5 ;
             this.y = this.game.CanvasHeight - this.height ;
         }
 
@@ -61,7 +61,7 @@ export default class Player {
         this.playerPosition = { x:this.x, y:this.y }; 
     }
             player2Place() {
-            this.x = 48 *10 ;
+            this.x = 48 *11 ;
             this.y = this.game.CanvasHeight - this.height ;
             }
 
