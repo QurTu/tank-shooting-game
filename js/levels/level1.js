@@ -9,27 +9,27 @@ earthWallArrayBuilding();
  RenderLenght( 48 *3, 48, 12 , "toX" , 1);
  RenderLenght( 48 *5, 48, 12 , "toX" , 1);
  RenderLenght( 48 * 7, 48, 10 , "toX" , 1);
- RenderLenght( 48 * 8, 48 * 2 , 2 , "toX" , 2);
- RenderLenght( 48 * 9, 48, 10 , "toX" , 1);
+ RenderLenght( 48 * 8, 48 * 2 , 3 , "toX" , 2);
+ RenderLenght( 48 * 9, 48, 9 , "toX" , 1);
  RenderLenght( 48 * 11, 48, 12 , "toX" , 1);
  RenderLenght( 48 * 13, 48, 12 , "toX" , 1);
  RenderLenght( 48 * 15, 48, 12 , "toX" , 1);
- RenderLenght( 0, 48 * 6 , 1 , "toX" , 2);
+ RenderLenght( 0, 48 * 6 , 3 , "toX" , 2);
  RenderLenght( 48* 16, 48 * 6 , 1 , "toX" , 2);
 
- RenderLenght( 48 * 7, 48 *6, 10 , "toX" , 1);
- RenderLenght( 48 * 8, 48 * 7 , 2 , "toX" , 1);
- RenderLenght( 48 * 9, 48* 6 , 10, "toX" , 1);
+ RenderLenght( 48 * 7, 48 *6, 9 , "toX" , 1);
+ RenderLenght( 48 * 8, 48 * 7 , 3 , "toX" , 1);
+ RenderLenght( 48 * 9, 48* 6 , 9, "toX" , 1);
 
- RenderLenght( 48 *1, 48 * 8, 11 , "toX" , 1);
- RenderLenght( 48 *3, 48* 8, 11 , "toX" , 1);
- RenderLenght( 48 *5, 48* 8, 11 , "toX" , 1);
- RenderLenght( 48 *15, 48 * 8, 11 , "toX" , 1);
- RenderLenght( 48 *11, 48* 8, 11 , "toX" , 1);
- RenderLenght( 48 *13, 48* 8, 11 , "toX" , 1);
+ RenderLenght( 48 *1, 48 * 8, 9 , "toX" , 1);
+ RenderLenght( 48 *3, 48* 8, 9 , "toX" , 1);
+ RenderLenght( 48 *5, 48* 8, 9 , "toX" , 1);
+ RenderLenght( 48 *15, 48 * 8, 9 , "toX" , 1);
+ RenderLenght( 48 *11, 48* 8, 9 , "toX" , 1);
+ RenderLenght( 48 *13, 48* 8, 9 , "toX" , 1);
 
- RenderLenght( 48* 2, 48 * 6 , 10 , "toY" , 1);
- RenderLenght( 48* 12, 48 * 6 , 10 , "toY" , 1);
+ RenderLenght( 48* 2, 48 * 6 , 9 , "toY" , 1);
+ RenderLenght( 48* 12, 48 * 6 , 9 , "toY" , 1);
 
  
 
