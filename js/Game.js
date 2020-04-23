@@ -185,7 +185,7 @@ gameOver() {
 }
 // all enemys are killed
 gameWon() {
-    if(this.vawe === 0 && this.EnemyArray.length <= 0) {
+    if(this.vawe === 0 && this.EnemyArray.length === 0) {
         this.gameOutCome = 1;
     }
 }
