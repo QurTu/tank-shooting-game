@@ -14,6 +14,7 @@ export default class AllGame {
     }
 
     gameStart() {
+        console.log('gracias');
         let  HTML = ` <div class="start"> <div class='start-menu'>
         <div class=" btn one-player"> START GAME : ONE PLAYER</div>
         <div class=" btn two-players">START GAME : TWO PLAYER</div>
@@ -48,7 +49,7 @@ export default class AllGame {
 update() {
     requestAnimationFrame((e) => this.update());
     this.WinStartNewLvl();
-    if(this.game.alive === 0) { 
+    if(this.alive === 0) { 
         this.gameRestart(); }
     
 }
@@ -56,8 +57,9 @@ update() {
 gameRestart() {
     this.level = 1;
     this.game = {gameOutCome: 0, alive: 1};
-        this.alive = 1;
-        this.gameStart();
+     this.alive = 1;
+     this.gameStart();
+     console.log(this.level,this.game, this.alive);
     
 }
 
