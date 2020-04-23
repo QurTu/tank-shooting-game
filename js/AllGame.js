@@ -40,7 +40,6 @@ export default class AllGame {
     }
 
     startLvl() {
-        console.log('suveikiau');
    this.game = new Game(this.level , this.players);
         this.level += 1;
         
@@ -59,7 +58,7 @@ gameRestart() {
     this.game = {gameOutCome: 0, alive: 1};
      this.alive = 1;
      this.gameStart();
-     console.log(this.level,this.game, this.alive);
+     
     
 }
 

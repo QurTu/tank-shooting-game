@@ -49,24 +49,24 @@ import Bullet from './bullets.js';
               this.dx = 0;
               this.dy = 1;
               this.bulletx = 0;
-              this.bullety = 8;
+              this.bullety = 4;
               break;
           case 2:
               this.dx = 0;
               this.dy = - 1;
               this.bulletx = 0;
-              this.bullety = -8;
+              this.bullety = -4;
               break;
           case 3:
               this.dx =  1;
               this.dy = 0;
-              this.bulletx = 8;
+              this.bulletx = 4;
               this.bullety = 0;
               break;
           case 4:
               this.dx = - 1;
               this.dy = 0;
-              this.bulletx = -8;
+              this.bulletx = -4;
                this.bullety = 0;
               break;
         }
@@ -126,16 +126,12 @@ import Bullet from './bullets.js';
 
         stayInMap() {
             if (this.newY < 0) {
-                 this.newY += Math.abs(this.dy)
-                this.DirectionGenerator();}
+                 this.newY += Math.abs(this.dy)}
             if (this.newY > this.game.CanvasHeight - 48) {
-                 this.newY = this.game.CanvasHeight - 48;
-                 this.DirectionGenerator();}
+                 this.newY = this.game.CanvasHeight - 48;}
             if(this.newX > this.game.CanvasWidth - 48) {
-                 this.newX = this.game.CanvasWidth - 48;
-                 this.DirectionGenerator();}
-            if(this.newX  < 0 ) { this.newX = 0;
-                this.DirectionGenerator();}
+                 this.newX = this.game.CanvasWidth - 48;}
+            if(this.newX  < 0 ) { this.newX = 0;}
               }
           
 
@@ -150,7 +146,6 @@ import Bullet from './bullets.js';
                   break;
               case 2:
                    this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this )) ;
-                   this.DirectionGenerator();
                   break;
               case 3:
                   this.bulletArr.push(new Bullet(this.x , this.y, this.bulletx , this.bullety , this )) ;
@@ -170,8 +165,8 @@ import Bullet from './bullets.js';
         for(let i =0; i < this.game.walls.allWalls.length; i++) {
                 let dx=(this.x + 47 /2)-(this.game.walls.allWalls[i].x + 16/2);
                 let dy=(this.y + 47 /2) -  (this.game.walls.allWalls[i].y + 16 /2);
-                let width=(44 + 16) /  2;
-                let height=(44 + 16) / 2;
+                let width=(47 + 16) /  2;
+                let height=(47 + 16) / 2;
                 let crossWidth=width*dy;
                 let crossHeight=height*dx;
                 if(Math.abs(dx)<=width && Math.abs(dy)<=height){
@@ -194,26 +189,15 @@ import Bullet from './bullets.js';
     hittingWall() {
         if(this.WallsCollision().includes(1)) { 
            this.newY += Math.abs(this.dy);
-           this.dy= 0;
-           
-          
         }
         if(this.WallsCollision().includes(4)) {
            this.newY -= this.dy;
-           this.dy= 0;
-           
-           
         }
         if(this.WallsCollision().includes(2)) {
            this.newX -= this.dx;
-           this.dx= 0;
-           
-           
         }
         if(  this.SideColision(this.WallsCollision() ) > 4 ) {
             this.newX = this.SideColision(this.WallsCollision());
-            this.dx= 0;
-           
         }
     }
 
@@ -227,7 +211,6 @@ import Bullet from './bullets.js';
                 let crossWidth=width*dy;
                 let crossHeight=height*dx;
                 if(Math.abs(dx)<=width && Math.abs(dy)<=height){
-                    this.DirectionGenerator();
                     if(crossWidth>crossHeight){
                         this.collision.push((crossWidth>(-crossHeight))?1:2);
                     }else{
@@ -252,8 +235,6 @@ import Bullet from './bullets.js';
 }
 
 
-
-
 // ...................this. enemy and player2 collsion  ......................................
 CollisionWithPlayer2() {
     this.collision= [];
@@ -264,7 +245,6 @@ CollisionWithPlayer2() {
             let crossWidth=width*dy;
             let crossHeight=height*dx;
             if(Math.abs(dx)<=width && Math.abs(dy)<=height){
-                this.DirectionGenerator();
                 if(crossWidth>crossHeight){
                     this.collision.push((crossWidth>(-crossHeight))?1:2);
                 }else{
@@ -297,6 +277,7 @@ enemyAndEnemyBullets() {
             this.game.enemyBulletsArray[i].y        <  this.y + 48 &&
             this.game.enemyBulletsArray[i].y + 8   >  this.y)  {
                             this.game.enemyBulletsArray[i].deadOrAlive = 0;
+                         //   this.deadOrAlive = 0;
                             this.game.ctx.clearRect(this.game.enemyBulletsArray[i].x, this.game.enemyBulletsArray[i].y, 8, 8);
                             
                             

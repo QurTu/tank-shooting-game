@@ -18,7 +18,7 @@ import Controls from './Controls.js';
         this.player1;
         this.player2;
         this.EnemyArray = [];
-        this.vawe = 5;
+        this.vawe = 3;
         this.allBullets = [];
         this.enemyBulletsArray = [];
         this.playersBulletsAr = [];
@@ -76,12 +76,23 @@ RenderWaveOfenemys()  {
 
  // check if enemys are dead and remove from array
  AreTheyDead() {
-    for( let i = 0 ; i <this.EnemyArray.length; i++) {
-        if(this.EnemyArray[i].deadOrAlive === 0) {
-             this.EnemyArray.splice(this.EnemyArray[i], 1);
-          }
-     }
-  }
+    for( let i= 0 ; i < this.EnemyArray.length ; i++) {
+        if(this.EnemyArray[i].deadOrAlive === 0) { 
+            this.EnemyArray.splice(i, 1);
+            console.log('dirbu');
+            break;
+        }
+       
+    }
+        
+    }
+    
+          
+
+          
+          
+     
+  
 
 
 
