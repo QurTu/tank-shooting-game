@@ -138,8 +138,14 @@ updateDraw() {
         this.dx = this.d0;
         this.dy = this.dMin;
         this.y -= 6; 
-        if (this.y < 0 || this.playerAndWallsCollision().includes(1) || this.playerAndEnemyCollision().includes(1) )  {
+        if (this.y < 0  || this.playerAndEnemyCollision().includes(1) )  {
             this.y += 6; }
+            for(let i = 0 ; i < this.playerAndWallsCollision().length; i++ ) {
+                console.log(this.playerAndWallsCollision([i].side))
+                if(this.playerAndWallsCollision()[i].side === 1) {
+                    this.y = this.playerAndWallsCollision()[i].place   ;
+                }
+            }
         this.updateDraw();}
 
             //move down
@@ -147,8 +153,14 @@ updateDraw() {
         this.dx = this.d0;
         this.dy = this.dMax;
         this.y += 6;
-        if (this.y > this.game.CanvasHeight - this.height || this.playerAndWallsCollision().includes(4)|| this.playerAndEnemyCollision().includes(4) ) {
+        if (this.y > this.game.CanvasHeight - this.height || this.playerAndEnemyCollision().includes(4) ) {
             this.y -= 6;}
+            for(let i = 0 ; i < this.playerAndWallsCollision().length; i++ ) {
+                console.log(this.playerAndWallsCollision([i].side))
+                if(this.playerAndWallsCollision()[i].side === 4) {
+                    this.y = this.playerAndWallsCollision()[i].place   ;
+                }
+            }
         this.updateDraw();}
 
        //   movie --->
@@ -156,10 +168,16 @@ updateDraw() {
         this.dx = this.dMax;
         this.dy = this.d0;
         this.x += 6;
-        if(this.playerAndWallsCollision().includes(2) || this.playerAndEnemyCollision().includes(2) ) {
+        if( this.playerAndEnemyCollision().includes(2) ) {
             this.x -= 6;}
         if(this.x > this.game.CanvasWidth - this.width) {
             this.x = this.game.CanvasWidth - this.width;}
+        for(let i = 0 ; i < this.playerAndWallsCollision().length; i++ ) {
+            console.log(this.playerAndWallsCollision([i].side))
+            if(this.playerAndWallsCollision()[i].side === 2) {
+                this.x = this.playerAndWallsCollision()[i].place   ;
+            }
+        }
         this.updateDraw();}
 
             //move <-----
@@ -172,8 +190,11 @@ updateDraw() {
         if(this.SideColision(this.playerAndEnemyCollision()) > 4 ) {
             this.x = this.SideColision(this.playerAndEnemyCollision())
             }
-        if(this.SideColision(this.playerAndWallsCollision()) > 4 ) {
-            this.x = this.SideColision(this.playerAndWallsCollision())
+            for(let i = 0 ; i < this.playerAndWallsCollision().length; i++ ) {
+                console.log(this.playerAndWallsCollision([i].side))
+                if(this.playerAndWallsCollision()[i].side === 3) {
+                    this.x = this.playerAndWallsCollision()[i].place   ;
+                }
             }
 
 
@@ -199,9 +220,14 @@ updateDraw() {
         this.dx = this.d0;
         this.dy = this.dMin;
         this.y -= 6;
-        if (this.y < 0 || this.playerAndWallsCollision().includes(1) ||
-         this.playerAndEnemyCollision().includes(1)) {
+        if (this.y < 0 || this.playerAndEnemyCollision().includes(1)) {
             this.y += 6;}
+            for(let i = 0 ; i < this.playerAndWallsCollision().length; i++ ) {
+                console.log(this.playerAndWallsCollision([i].side))
+                if(this.playerAndWallsCollision()[i].side === 1) {
+                    this.y = this.playerAndWallsCollision()[i].place   ;
+                }
+            }
         this.updateDraw(); }
 
             //player2 down
@@ -209,9 +235,15 @@ updateDraw() {
            this.dx = this.d0;
            this.dy = this.dMax;
             this.y += 6;
-        if (this.y > this.game.CanvasHeight - this.height || this.playerAndWallsCollision().includes(4) ||
+        if (this.y > this.game.CanvasHeight - this.height  ||
           this.playerAndEnemyCollision().includes(4)) {
             this.y -= 6;}
+            for(let i = 0 ; i < this.playerAndWallsCollision().length; i++ ) {
+                console.log(this.playerAndWallsCollision([i].side))
+                if(this.playerAndWallsCollision()[i].side === 4) {
+                    this.y = this.playerAndWallsCollision()[i].place   ;
+                }
+            }
         this.updateDraw();
     }
 
@@ -222,8 +254,14 @@ updateDraw() {
         this.x += 6;
         if(this.x > this.game.CanvasWidth - this.width) {
             this.x = this.game.CanvasWidth - this.width;};
-        if(this.playerAndWallsCollision().includes(2) || this.playerAndEnemyCollision().includes(2)) {
+        if( this.playerAndEnemyCollision().includes(2)) {
             this.x -= 6;}
+            for(let i = 0 ; i < this.playerAndWallsCollision().length; i++ ) {
+                console.log(this.playerAndWallsCollision([i].side))
+                if(this.playerAndWallsCollision()[i].side === 2) {
+                    this.x = this.playerAndWallsCollision()[i].place   ;
+                }
+            }
         this.updateDraw();}
 
             //player2  <----
@@ -236,8 +274,11 @@ updateDraw() {
         if(this.SideColision(this.playerAndWallsCollision()) > 4 ) {
             this.x = this.SideColision(this.playerAndWallsCollision())
             }
-        if(this.SideColision(this.playerAndWallsCollision()) > 4 ) {
-            this.x = this.SideColision(this.playerAndWallsCollision())
+            for(let i = 0 ; i < this.playerAndWallsCollision().length; i++ ) {
+                console.log(this.playerAndWallsCollision([i].side))
+                if(this.playerAndWallsCollision()[i].side === 3) {
+                    this.x = this.playerAndWallsCollision()[i].place   ;
+                }
             }
         this.updateDraw();}
     }
@@ -257,9 +298,9 @@ playerAndWallsCollision() {
             let crossHeight=height*dx;
             if(Math.abs(dx)<=width && Math.abs(dy)<=height){
                 if(crossWidth>crossHeight){
-                    this.collision.push((crossWidth>(-crossHeight))?1:2);
+                    this.collision.push((crossWidth>(-crossHeight))?{side:1 ,place:this.game.walls.allWalls[i].y + 16  }:{side:2 ,place:this.game.walls.allWalls[i].x - 48 });
                 }else{
-                    this.collision.push((crossWidth>-(crossHeight))? this.game.walls.allWalls[i].x +16  : 4);
+                    this.collision.push((crossWidth>-(crossHeight))? {side:3 ,place:this.game.walls.allWalls[i].x + 16 } : {side:4 ,place:this.game.walls.allWalls[i].y -48 });
                 }  
              }
     }

@@ -18,7 +18,7 @@ import Controls from './Controls.js';
         this.player1;
         this.player2;
         this.EnemyArray = [];
-        this.vawe = 1;
+        this.vawe = 5;
         this.allBullets = [];
         this.enemyBulletsArray = [];
         this.playersBulletsAr = [];
@@ -29,7 +29,7 @@ import Controls from './Controls.js';
         
  
        this.renderGame();
-       setInterval(() => this.RenderEnemys(), 3000);
+       setInterval(() => this.RenderEnemys(), 100);
        this.updateReq();
        
     } 
