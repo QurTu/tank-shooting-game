@@ -13,7 +13,7 @@ export default class Walls {
        this.img = document.querySelector('.brick');
        this.imgRock = document.querySelector('.rock');
        this.allWalls = [];
-            this.earthWallArrayBuilding();
+            
             this.imgRock.onload = this.renderWalls();
    }
    
@@ -36,37 +36,5 @@ export default class Walls {
    }
 
 
-   earthWallArrayBuilding() {
-    this.wallArray.push({x: this.widthCanvas / 2 + 24 , y: this.heightCanvas - 16 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 + 24 , y: this.heightCanvas - 32 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 + 24 , y: this.heightCanvas - 48 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 + 24 , y: this.heightCanvas - 60 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 + 24 , y: this.heightCanvas - 72 , t: 1 })
-
-    this.wallArray.push({x: this.widthCanvas / 2 + 40 , y: this.heightCanvas - 16 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 + 40 , y: this.heightCanvas - 32 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 + 40 , y: this.heightCanvas - 48 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 + 40 , y: this.heightCanvas - 60 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 + 40 , y: this.heightCanvas - 72 , t: 1 })
-    
-    this.wallArray.push({x: this.widthCanvas / 2 - 40 , y: this.heightCanvas - 16 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 - 40 , y: this.heightCanvas - 32 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 - 40 , y: this.heightCanvas - 48 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 - 40 , y: this.heightCanvas - 60 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 - 40 , y: this.heightCanvas - 72 , t: 1 })
-
-    this.wallArray.push({x: this.widthCanvas / 2 - 56 , y: this.heightCanvas - 16 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 - 56 , y: this.heightCanvas - 32 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 - 56 , y: this.heightCanvas - 48 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 - 56 , y: this.heightCanvas - 60 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 - 56 , y: this.heightCanvas - 72 , t: 1 })
-
-    this.wallArray.push({x: this.widthCanvas / 2  + 8 , y: this.heightCanvas - 60 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 + 8 , y: this.heightCanvas - 72 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2  - 8 , y: this.heightCanvas - 60, t: 1  })
-    this.wallArray.push({x: this.widthCanvas / 2 - 8 , y: this.heightCanvas - 72 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2  - 24 , y: this.heightCanvas - 60 , t: 1 })
-    this.wallArray.push({x: this.widthCanvas / 2 - 24 , y: this.heightCanvas - 72 , t: 1 })
-    
-}
+   
    }

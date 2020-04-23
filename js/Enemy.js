@@ -277,6 +277,7 @@ enemyAndEnemyBullets() {
             this.game.enemyBulletsArray[i].y        <  this.y + 48 &&
             this.game.enemyBulletsArray[i].y + 8   >  this.y)  {
                             this.game.enemyBulletsArray[i].deadOrAlive = 0;
+                         //   this.deadOrAlive = 0;
                             this.game.ctx.clearRect(this.game.enemyBulletsArray[i].x, this.game.enemyBulletsArray[i].y, 8, 8);
                             
                             
