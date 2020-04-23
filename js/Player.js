@@ -22,11 +22,16 @@ export default class Player {
          this.dMin = -4;
          this.d0 = 0;
          this.hp = 2 ;
+
+         this.kamehame = new Audio('../sound/kamehame.mp3');
+         this.move = new Audio('../sound/move.mp3');
+         
          this.deadOrAlive = 1;
          this.bulletArr = []; 
          this.firstSpawn() ;
          this.eventLisiner();
          this.updateReq();
+         
          
         
     }
@@ -74,6 +79,7 @@ export default class Player {
      // key unpressed.
     keyUp(e) {
         this.pressedKeys[e.keyCode] = false;
+        this.move.pause();
     }
     eventLisiner() {
         if(this.deadOrAlive === 1 && this.game.gameOutCome === 0) {
@@ -124,6 +130,7 @@ updateDraw() {
    update(e) {
     
        this.pressedKeys[e.keyCode] = true;
+       
    
 
        if(this.deadOrAlive === 1 && this.game.gameOutCome === 0) {
@@ -131,10 +138,13 @@ updateDraw() {
       if( this.playerNumb === 1)  {
          if (this.pressedKeys[32]) {
              if(this.bulletArr < 1) {
-             this.bulletArr.push( new Bullet(this.x , this.y, this.dx , this.dy , this ));  } 
+             this.bulletArr.push( new Bullet(this.x , this.y, this.dx , this.dy , this ));
+             this.kamehame.play();
+            } 
          }
             //move up
     if (this.pressedKeys[87]) {
+        this.move.play();
         this.dx = this.d0;
         this.dy = this.dMin;
         this.y -= 6; 
@@ -150,6 +160,7 @@ updateDraw() {
 
             //move down
     if (this.pressedKeys[83]) {
+        this.move.play();
         this.dx = this.d0;
         this.dy = this.dMax;
         this.y += 6;
@@ -165,6 +176,7 @@ updateDraw() {
 
        //   movie --->
     if ( this.pressedKeys[68]) {
+        this.move.play();
         this.dx = this.dMax;
         this.dy = this.d0;
         this.x += 6;
@@ -182,6 +194,7 @@ updateDraw() {
 
             //move <-----
     if ( this.pressedKeys[65]) {
+        this.move.play();
         this.dx = this.dMin;
         this.dy = this.d0;
         this.x -= 6; 
@@ -213,10 +226,14 @@ updateDraw() {
  if(this.playerNumb === 2) {
     if (this.pressedKeys[107]) {
         if(this.bulletArr < 1) {
-        this.bulletArr.push( new Bullet(this.x , this.y, this.dx , this.dy , this ));} 
+        this.bulletArr.push( new Bullet(this.x , this.y, this.dx , this.dy , this ));
+        this.kamehame.position = 0 
+        this.kamehame.play();
+        this.kamehame.position = 0 ;} 
         }
         //player2 up
     if ( this.pressedKeys[104]) {
+        this.move.play();
         this.dx = this.d0;
         this.dy = this.dMin;
         this.y -= 6;
@@ -232,6 +249,7 @@ updateDraw() {
 
             //player2 down
     if ( this.pressedKeys[101]) {
+        this.move.play();
            this.dx = this.d0;
            this.dy = this.dMax;
             this.y += 6;
@@ -249,6 +267,7 @@ updateDraw() {
 
             //player2 ---->
     if ( this.pressedKeys[102]) {
+        this.move.play();
         this.dx = this.dMax;
         this.dy = this.d0;
         this.x += 6;
@@ -266,6 +285,7 @@ updateDraw() {
 
             //player2  <----
     if ( this.pressedKeys[100]) {
+        this.move.play();
         this.dx = this.dMin;
         this.dy = this.d0;
         this.x -= 6;

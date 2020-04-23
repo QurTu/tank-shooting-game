@@ -9,10 +9,13 @@ export default class Bullet {
         this.y = shootery;
         this.xNew = null;
         this.yNew = null;
+        
+       
         this.img = document.querySelector('.rock');
         this.shooter = shooter;
         this.bulletRender() ;
         this.updateReq();
+        
 
     }
       // rendering new bullet
