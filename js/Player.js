@@ -23,8 +23,9 @@ export default class Player {
          this.d0 = 0;
          this.hp = 2 ;
 
-         this.kamehame = new Audio('../sound/kamehame.mp3');
+         this.kamehame = document.querySelector('.kame');
          this.move = new Audio('../sound/move.mp3');
+         this.move.loop = true;
          
          this.deadOrAlive = 1;
          this.bulletArr = []; 
