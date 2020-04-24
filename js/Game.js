@@ -4,6 +4,7 @@ import  Walls from './Walls.js';
 import Player from './Player.js';
 import Enemy from './Enemy.js';
 import Controls from './Controls.js';
+import Score from './Score.js';
 
  export default class Game  {
     constructor( level, playerNumb) {
@@ -25,7 +26,10 @@ import Controls from './Controls.js';
         this.shortArray = [];
         this.gameOutCome = 0;
         this.controls ;
-        
+        this.backMusic = document.querySelector('.background');
+        this.backMusic.loop = true;
+         this.backMusic.volume = 0.01;
+         this.music = 1;
         
  
        this.renderGame();
@@ -40,8 +44,12 @@ import Controls from './Controls.js';
         this.earth = new Earth(this);
         this.walls = new Walls(this);
         this.controls = new Controls(this.playerNumb);
+        this.ScoreBoard = new Score(this);
         this.initPlayers();
         this.RenderEnemys();
+        if( this.music === 1) {
+            this.backMusic.play();
+           }
     }
 
     renderCanvas() {
@@ -78,8 +86,8 @@ RenderWaveOfenemys()  {
  AreTheyDead() {
     for( let i= 0 ; i < this.EnemyArray.length ; i++) {
         if(this.EnemyArray[i].deadOrAlive === 0) { 
+            document.querySelector('.enemyleft ').innerHTML -= 1;
             this.EnemyArray.splice(i, 1);
-            console.log('dirbu');
             break;
         }
        
@@ -87,12 +95,6 @@ RenderWaveOfenemys()  {
         
     }
     
-          
-
-          
-          
-     
-  
 
 
 
@@ -188,7 +190,11 @@ gameOver() {
     if(this.playerNumb ===  1) {
         if(this.player1.hp === 0) {
             this.gameOutCome = -1;
-        }}
+            this.backMusic.pause();
+        }
+            
+           
+    }
     if(this.playerNumb ===  2) {
         if(this.player1.hp === 0 && this.player2.hp === 0) {
             this.gameOutCome = -1;}

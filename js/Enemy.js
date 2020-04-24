@@ -303,13 +303,8 @@ enemyAndEnemyBullets() {
                             this.game.playersBulletsAr[i].deadOrAlive = 0;
                             this.game.ctx.clearRect(this.game.playersBulletsAr[i].x, this.game.playersBulletsAr[i].y, 8, 8);
                             this.game.ctx.clearRect(this.x, this.y, 48, 48);
-                            
-
  }
     }
-
-
-
 }
       
     
