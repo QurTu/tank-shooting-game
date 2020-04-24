@@ -30,11 +30,14 @@ import Score from './Score.js';
         this.backMusic.loop = true;
          this.backMusic.volume = 0.01;
          this.music = 1;
+         
+         this.gameState = 1;
         
  
        this.renderGame();
        setInterval(() => this.RenderEnemys(), 100);
        this.updateReq();
+       this.musicStop();
        
     } 
    
@@ -208,6 +211,15 @@ gameWon() {
 }
     
 
+musicStop() {
+    document.querySelector('.stop-music').addEventListener('click', () => {
+       if( this.music === 1) {
+           this.music = 0;
+       } 
+    })
+   
+}
+    
 
 
 

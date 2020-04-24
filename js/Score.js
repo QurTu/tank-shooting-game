@@ -5,13 +5,16 @@ export default class Score {
         this.enemyleft = 21;
       
         this.renderScoreBoard();
+        
+        this.addLisiner()
     }
 
 renderScoreBoard() {
+    if(this.game.playerNumb === 1) {
  this.HTML = `   <div class="score-board">  
  <div class="control-btns">
-  <div class="pauze-btn"> Pauze </div>
-  <div class="stop-music">music</div>
+ 
+  <div class="stop-music">STOP MUSIC</div>
 </div>
  <div class="score-enemy">
      <h2>Enemys left:</h2>
@@ -22,21 +25,48 @@ renderScoreBoard() {
   <img  class = "hp" src="./img/hp.png" alt="">
   <img  class = "hp" src="./img/hp.png" alt="">
   <img  class = "hp" src="./img/hp.png" alt="">
+</div>
 </div>`;
-document.querySelector('.game').insertAdjacentHTML('beforeend', this.HTML);
-console.log(this.game.playerNumb);
-if(this.game.playerNumb === 2) {
-    console.log('veikiu');
-    this.player2HTML = ` <div class="score-player2">
+    }
+    if(this.game.playerNumb === 2) {
+        this.HTML = `   <div class="score-board">  
+ <div class="control-btns">
+  <div class="stop-music"> STOP MUSIC</div>
+</div>
+ <div class="score-enemy">
+     <h2>Enemys left:</h2>
+     <h2 class= "enemyleft ">${ this.enemyleft }</h2>
+ </div>
+ <div class="score-player1">
+  <h2>Songoku lifes:</h2>
+  <img  class = "hp" src="./img/hp.png" alt="">
+  <img  class = "hp" src="./img/hp.png" alt="">
+  <img  class = "hp" src="./img/hp.png" alt="">
+</div>
+<div class="score-player2">
     <h2>Vegeta lifes:</h2>
     <img  class = "hp" src="./img/hp.png" alt="">
     <img  class = "hp" src="./img/hp.png" alt="">
     <img  class = "hp" src="./img/hp.png" alt="">
   </div>
-    `
-    document.querySelector('.score-board').insertAdjacentHTML('beforeend', this.player2HTML);
+</div>`; }
+document.querySelector('.game').insertAdjacentHTML('beforeend', this.HTML);
+
 }
+
+addLisiner() {
+    document.querySelector('.stop-music').addEventListener('click', () => {
+    if(this.game.music === 1) {
+        console.log('veikiu');
+        this.game.backMusic.pause();  
+          this.game.music = 0 ;
+    }
+
+   
+    })
 }
 
 
 }
+
+
