@@ -28,8 +28,9 @@ export default class Player {
          this.move = document.querySelector('.move');
          this.nani = document.querySelector('.nani');
          this.move.loop = true;
-         this.move.volume = 0.2;
+         this.move.volume = 0.05;
          this.nani.volume = 0.05;
+         this.kamehame.volume = 0.5;
          
          this.deadOrAlive = 1;
          this.bulletArr = []; 

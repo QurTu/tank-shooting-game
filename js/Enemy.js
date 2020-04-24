@@ -24,8 +24,8 @@ import Bullet from './bullets.js';
 
         this.updateReq();
         this.DirectionGenerator();
-        setInterval(() => this.DirectionGenerator(), 3000);
-        setInterval(() => this.BulletGenerator(), 3000);
+        setInterval(() => this.DirectionGenerator(), 2000);
+        setInterval(() => this.BulletGenerator(), 500);
  
     }
      //   -------------------enemy render ----------------
@@ -123,10 +123,18 @@ import Bullet from './bullets.js';
         }
 
         // make enemys stay in Canvas
+    random1() {
+        if(Math.random() > 0,5) {
+            return 1;
+        }
+        return -1;
+    }
+
 
         stayInMap() {
             if (this.newY < 0) {
                  this.newY += Math.abs(this.dy)}
+                Math.ceil(Math.random() * 2 )
             if (this.newY > this.game.CanvasHeight - 48) {
                  this.newY = this.game.CanvasHeight - 48;}
             if(this.newX > this.game.CanvasWidth - 48) {
@@ -199,6 +207,9 @@ import Bullet from './bullets.js';
         if(  this.SideColision(this.WallsCollision() ) > 4 ) {
             this.newX = this.SideColision(this.WallsCollision());
         }
+        if(this.WallsCollision().length > 1) {
+        
+        }
     }
 
     // ...................this. enemy and player1 collsion  ......................................
@@ -214,7 +225,7 @@ import Bullet from './bullets.js';
                     if(crossWidth>crossHeight){
                         this.collision.push((crossWidth>(-crossHeight))?1:2);
                     }else{
-                        this.collision.push((crossWidth>-(crossHeight))? this.game.player1.x +48  : 4);
+                        this.collision.push((crossWidth>-(crossHeight))? this.game.player1.x +16  : 4);
                     }  
                  }
         return this.collision;
@@ -248,7 +259,7 @@ CollisionWithPlayer2() {
                 if(crossWidth>crossHeight){
                     this.collision.push((crossWidth>(-crossHeight))?1:2);
                 }else{
-                    this.collision.push((crossWidth>-(crossHeight))? this.game.player2.x +48  : 4);
+                    this.collision.push((crossWidth>-(crossHeight))? this.game.player2.x +16  : 4);
                 }  
              }
     return this.collision;
@@ -303,8 +314,13 @@ enemyAndEnemyBullets() {
                             this.game.playersBulletsAr[i].deadOrAlive = 0;
                             this.game.ctx.clearRect(this.game.playersBulletsAr[i].x, this.game.playersBulletsAr[i].y, 8, 8);
                             this.game.ctx.clearRect(this.x, this.y, 48, 48);
+                            
+
  }
     }
+
+
+
 }
       
     

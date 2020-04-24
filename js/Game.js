@@ -19,7 +19,7 @@ import Score from './Score.js';
         this.player1;
         this.player2;
         this.EnemyArray = [];
-        this.vawe = 3;
+        this.vawe = 7;
         this.allBullets = [];
         this.enemyBulletsArray = [];
         this.playersBulletsAr = [];
@@ -28,14 +28,14 @@ import Score from './Score.js';
         this.controls ;
         this.backMusic = document.querySelector('.background');
         this.backMusic.loop = true;
-         this.backMusic.volume = 0.01;
+         this.backMusic.volume = 0.005;
          this.music = 1;
          
          this.gameState = 1;
         
  
        this.renderGame();
-       setInterval(() => this.RenderEnemys(), 100);
+       setInterval(() => this.RenderEnemys(), 8000);
        this.updateReq();
        this.musicStop();
        
@@ -199,7 +199,7 @@ gameOver() {
     if(this.playerNumb ===  1) {
         if(this.player1.hp === 0) {
             this.gameOutCome = -1;
-            this.backMusic.pause();
+            
         }
             
            
