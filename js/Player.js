@@ -21,7 +21,7 @@ export default class Player {
          this.dMax = 4;
          this.dMin = -4;
          this.d0 = 0;
-         this.hp =  3;
+         this.hp =  2;
          this.music = 1;
 
          this.kamehame = document.querySelector('.kame');

@@ -22,7 +22,7 @@ renderScoreBoard() {
  </div>
  <div class="score-player1">
   <h2>Songoku lifes:</h2>
-  <h2 class= "player1hp">3</h2>
+  <h2 class= "player1hp">2</h2>
 </div>
 </div>`;
     }
@@ -37,13 +37,13 @@ renderScoreBoard() {
  </div>
  <div class="score-player1">
   <h2>Songoku lifes:</h2>
-  <h2 class= "player1hp">3</h2>
+  <h2 class= "player1hp">2</h2>
        
 
 </div>
 <div class="score-player2">
     <h2>Vegeta lifes:</h2>
-    <h2 class= "player2hp">3</h2>
+    <h2 class= "player2hp">2</h2>
   </div>
 </div>`; }
 document.querySelector('.game').insertAdjacentHTML('beforeend', this.HTML);
