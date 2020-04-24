@@ -24,8 +24,8 @@ import Bullet from './bullets.js';
 
         this.updateReq();
         this.DirectionGenerator();
-        setInterval(() => this.DirectionGenerator(), 3000);
-        setInterval(() => this.BulletGenerator(), 3000);
+        setInterval(() => this.DirectionGenerator(), 2000);
+        setInterval(() => this.BulletGenerator(), 500);
  
     }
      //   -------------------enemy render ----------------
@@ -123,10 +123,18 @@ import Bullet from './bullets.js';
         }
 
         // make enemys stay in Canvas
+    random1() {
+        if(Math.random() > 0,5) {
+            return 1;
+        }
+        return -1;
+    }
+
 
         stayInMap() {
             if (this.newY < 0) {
                  this.newY += Math.abs(this.dy)}
+                Math.ceil(Math.random() * 2 )
             if (this.newY > this.game.CanvasHeight - 48) {
                  this.newY = this.game.CanvasHeight - 48;}
             if(this.newX > this.game.CanvasWidth - 48) {
@@ -198,6 +206,9 @@ import Bullet from './bullets.js';
         }
         if(  this.SideColision(this.WallsCollision() ) > 4 ) {
             this.newX = this.SideColision(this.WallsCollision());
+        }
+        if(this.WallsCollision().length > 1) {
+        
         }
     }
 

@@ -40,10 +40,16 @@ export default class AllGame {
     }
 
     startLvl() {
+      
+  
    this.game = new Game(this.level , this.players);
-        this.level += 1;
+   this.level += 1; }
+
+    
         
-}
+        
+        
+
 
 update() {
     requestAnimationFrame((e) => this.update());
@@ -63,6 +69,12 @@ gameRestart() {
 }
 
 WinStartNewLvl() {
+  if(this.game.gameOutCome === 1 && this.level === 5) { 
+    this.game = 0;     
+    while ( document.querySelector('.game').firstChild) {
+    document.querySelector('.game').removeChild( document.querySelector('.game').lastChild); }
+    this.gameRestart();
+  }
     if(this.game.gameOutCome === 1) {      
     while ( document.querySelector('.game').firstChild) {
     document.querySelector('.game').removeChild( document.querySelector('.game').lastChild);
@@ -75,6 +87,7 @@ WinStartNewLvl() {
     document.querySelector('.game').removeChild( document.querySelector('.game').lastChild);
   }
     }
+   
 
 }
 

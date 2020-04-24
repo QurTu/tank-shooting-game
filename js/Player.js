@@ -21,11 +21,16 @@ export default class Player {
          this.dMax = 4;
          this.dMin = -4;
          this.d0 = 0;
-         this.hp = 2 ;
+         this.hp =  2;
+         this.music = 1;
 
          this.kamehame = document.querySelector('.kame');
-         this.move = new Audio('../sound/move.mp3');
+         this.move = document.querySelector('.move');
+         this.nani = document.querySelector('.nani');
          this.move.loop = true;
+         this.move.volume = 0.05;
+         this.nani.volume = 0.02;
+         this.kamehame.volume = 0.5;
          
          this.deadOrAlive = 1;
          this.bulletArr = []; 
@@ -140,12 +145,15 @@ updateDraw() {
          if (this.pressedKeys[32]) {
              if(this.bulletArr < 1) {
              this.bulletArr.push( new Bullet(this.x , this.y, this.dx , this.dy , this ));
+             if( this.music === 1) {
              this.kamehame.play();
-            } 
+            }}
          }
             //move up
     if (this.pressedKeys[87]) {
+        if( this.music === 1) {
         this.move.play();
+        }
         this.dx = this.d0;
         this.dy = this.dMin;
         this.y -= 6; 
@@ -161,7 +169,8 @@ updateDraw() {
 
             //move down
     if (this.pressedKeys[83]) {
-        this.move.play();
+        if( this.music === 1) {
+        this.move.play();}
         this.dx = this.d0;
         this.dy = this.dMax;
         this.y += 6;
@@ -177,7 +186,8 @@ updateDraw() {
 
        //   movie --->
     if ( this.pressedKeys[68]) {
-        this.move.play();
+        if( this.music === 1) {
+        this.move.play();}
         this.dx = this.dMax;
         this.dy = this.d0;
         this.x += 6;
@@ -195,7 +205,8 @@ updateDraw() {
 
             //move <-----
     if ( this.pressedKeys[65]) {
-        this.move.play();
+        if( this.music === 1) {
+        this.move.play();}
         this.dx = this.dMin;
         this.dy = this.d0;
         this.x -= 6; 
@@ -214,11 +225,15 @@ updateDraw() {
 
         
         this.updateDraw();}
+        
         }
-        }
+    }
     
         
     
+
+
+
 
 // ------------------------ PLayer 2 movments --------------------------
 
@@ -228,13 +243,16 @@ updateDraw() {
     if (this.pressedKeys[107]) {
         if(this.bulletArr < 1) {
         this.bulletArr.push( new Bullet(this.x , this.y, this.dx , this.dy , this ));
-        this.kamehame.position = 0 
+        if( this.music === 1) {
+        this.kamehame.position = 0 ;
         this.kamehame.play();
-        this.kamehame.position = 0 ;} 
+       } } 
         }
+    
         //player2 up
     if ( this.pressedKeys[104]) {
-        this.move.play();
+        if( this.music === 1) {
+        this.move.play();}
         this.dx = this.d0;
         this.dy = this.dMin;
         this.y -= 6;
@@ -250,7 +268,8 @@ updateDraw() {
 
             //player2 down
     if ( this.pressedKeys[101]) {
-        this.move.play();
+        if( this.music === 1) {
+        this.move.play();}
            this.dx = this.d0;
            this.dy = this.dMax;
             this.y += 6;
@@ -268,7 +287,8 @@ updateDraw() {
 
             //player2 ---->
     if ( this.pressedKeys[102]) {
-        this.move.play();
+        if( this.music === 1) {
+        this.move.play();}
         this.dx = this.dMax;
         this.dy = this.d0;
         this.x += 6;
@@ -282,16 +302,18 @@ updateDraw() {
                     this.x = this.playerAndWallsCollision()[i].place   ;
                 }
             }
+        
         this.updateDraw();}
 
             //player2  <----
     if ( this.pressedKeys[100]) {
-        this.move.play();
+        if( this.music === 1) {
+        this.move.play();}
         this.dx = this.dMin;
         this.dy = this.d0;
         this.x -= 6;
         if(this.x < 0 ) {
-            this.x = 0;};  }
+            this.x = 0;};  
         if(this.SideColision(this.playerAndWallsCollision()) > 4 ) {
             this.x = this.SideColision(this.playerAndWallsCollision())
             }
@@ -301,12 +323,19 @@ updateDraw() {
                     this.x = this.playerAndWallsCollision()[i].place   ;
                 }
             }
-        this.updateDraw();}
+        this.updateDraw();
     }
 
+ }
+
+     }
+        
     }
+
+    
 
     ///-----------------------collisions---------------------------------------
+
 // player and Walls collision
 playerAndWallsCollision() {
     this.collision= [];
@@ -327,6 +356,7 @@ playerAndWallsCollision() {
     }
     return this.collision;
 }
+
 SideColision(array) {
     for( let i = 0 ; i < array.length; i++) {
         if ( array[i] > 4) {
@@ -345,6 +375,8 @@ PlayerAndEnemyBullets() {
                             this.game.enemyBulletsArray[i].deadOrAlive = 0;
                             this.game.ctx.clearRect(this.game.enemyBulletsArray[i].x, this.game.enemyBulletsArray[i].y, 8, 8);
                             this.deadOrAlive = 0;
+                            if( this.music === 1) {
+                                this.nani.play();}
                             this.game.ctx.clearRect(this.x, this.y, 48, 48);
  }
     }
@@ -384,58 +416,4 @@ playerAndEnemyCollision() {
 
 
 
-        
-
-    
-
-//     // player1 to player2  collsion
-//     PlayerColision() {
-//             let dx=(this.x + 48 /2)-(this.x + 48/2);
-//             let dy=(this.y + 48 /2) -  (this.y + 48 /2);
-//             let width=(48 + 48) /  2;
-//             let height=(48 + 48) / 2;
-//             let crossWidth=width*dy;
-//             let crossHeight=height*dx;
-//             let collision= 0;
-            
-//             if(Math.abs(dx)<=width && Math.abs(dy)<=height){
-//                 if(crossWidth>crossHeight){
-//                     collision=(crossWidth>(-crossHeight))?1:2;
-//                 }else{
-//                     collision=(crossWidth>-(crossHeight))?3: 4;
-//                 }
-//             }
-//             return(collision);  
-//         } 
-    
-
-//    // player2 to player1  collsion
-//     PlayerColision2() {
-//             let dx=(this.x + 48 /2)-(this.x + 48 /2);
-//             let dy=(this.y + 48 /2) -  (this.y + 48 /2);
-//             let width=(48 + 48) /  2;
-//             let height=(48 + 48) / 2;
-//             let crossWidth=width*dy;
-//             let crossHeight=height*dx;
-//             let collision= 0;
-            
-//             if(Math.abs(dx)<=width && Math.abs(dy)<=height){
-//                 if(crossWidth>crossHeight){
-//                     collision=(crossWidth>(-crossHeight))?1:2;
-//                 }else{
-//                     collision=(crossWidth>-(crossHeight))?3: 4;
-//                 }
-//             }
-//             return(collision);
-//     }
-    
  
-
-
-
-
-
-
-
-
-

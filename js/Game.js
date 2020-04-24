@@ -4,6 +4,7 @@ import  Walls from './Walls.js';
 import Player from './Player.js';
 import Enemy from './Enemy.js';
 import Controls from './Controls.js';
+import Score from './Score.js';
 
  export default class Game  {
     constructor( level, playerNumb) {
@@ -18,19 +19,25 @@ import Controls from './Controls.js';
         this.player1;
         this.player2;
         this.EnemyArray = [];
-        this.vawe = 3;
+        this.vawe = 7;
         this.allBullets = [];
         this.enemyBulletsArray = [];
         this.playersBulletsAr = [];
         this.shortArray = [];
         this.gameOutCome = 0;
         this.controls ;
-        
+        this.backMusic = document.querySelector('.background');
+        this.backMusic.loop = true;
+         this.backMusic.volume = 0.005;
+         this.music = 1;
+         
+         this.gameState = 1;
         
  
        this.renderGame();
-       setInterval(() => this.RenderEnemys(), 100);
+       setInterval(() => this.RenderEnemys(), 8000);
        this.updateReq();
+       this.musicStop();
        
     } 
    
@@ -40,8 +47,12 @@ import Controls from './Controls.js';
         this.earth = new Earth(this);
         this.walls = new Walls(this);
         this.controls = new Controls(this.playerNumb);
+        this.ScoreBoard = new Score(this);
         this.initPlayers();
         this.RenderEnemys();
+        if( this.music === 1) {
+            this.backMusic.play();
+           }
     }
 
     renderCanvas() {
@@ -78,8 +89,8 @@ RenderWaveOfenemys()  {
  AreTheyDead() {
     for( let i= 0 ; i < this.EnemyArray.length ; i++) {
         if(this.EnemyArray[i].deadOrAlive === 0) { 
+            document.querySelector('.enemyleft ').innerHTML -= 1;
             this.EnemyArray.splice(i, 1);
-            console.log('dirbu');
             break;
         }
        
@@ -87,12 +98,6 @@ RenderWaveOfenemys()  {
         
     }
     
-          
-
-          
-          
-     
-  
 
 
 
@@ -170,7 +175,10 @@ CanRespaw() {
         if(this.player1.hp > 0) {
             this.player1.deadOrAlive = 1;
             setTimeout( this.player1.spawnPlayer() , 3000);
-            this.player1.hp -= 1;}
+            this.player1.hp -= 1;
+            document.querySelector('.player1hp ').innerHTML -= 1;
+           
+        }
     }
     
     if(this.playerNumb === 2) {
@@ -178,7 +186,10 @@ CanRespaw() {
             if(this.player2.hp > 0) {
                 setTimeout( this.player2.spawnPlayer2() , 3000);
                 this.player2.deadOrAlive = 1;
-                this.player2.hp -= 1;}
+                this.player2.hp -= 1;
+                document.querySelector('.player2hp ').innerHTML -= 1;
+               
+            }
         }
     }6
     this.gameOver();
@@ -188,7 +199,11 @@ gameOver() {
     if(this.playerNumb ===  1) {
         if(this.player1.hp === 0) {
             this.gameOutCome = -1;
-        }}
+            
+        }
+            
+           
+    }
     if(this.playerNumb ===  2) {
         if(this.player1.hp === 0 && this.player2.hp === 0) {
             this.gameOutCome = -1;}
@@ -202,6 +217,16 @@ gameWon() {
 }
     
 
+musicStop() {
+    document.querySelector('.stop-music').addEventListener('click', () => {
+        if(this.music === 1) {
+        this.backMusic.pause();
+        
+       } })
+
+   
+}
+    
 
 
 
