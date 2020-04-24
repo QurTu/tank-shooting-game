@@ -29,7 +29,7 @@ export default class Player {
          this.nani = document.querySelector('.nani');
          this.move.loop = true;
          this.move.volume = 0.05;
-         this.nani.volume = 0.05;
+         this.nani.volume = 0.02;
          this.kamehame.volume = 0.5;
          
          this.deadOrAlive = 1;
