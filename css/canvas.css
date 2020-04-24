@@ -45,3 +45,15 @@ canvas  {
         border: 2px black solid;
     }
 
+    .stop-music {
+        display: inline-block;
+        margin: 10px 0;
+        padding: 5px;
+        background-color: #222;
+        cursor: pointer;
+        color: aliceblue;
+    }
+    .stop-music:hover {
+        padding: 8px;
+     }
+

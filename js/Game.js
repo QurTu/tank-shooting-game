@@ -175,7 +175,10 @@ CanRespaw() {
         if(this.player1.hp > 0) {
             this.player1.deadOrAlive = 1;
             setTimeout( this.player1.spawnPlayer() , 3000);
-            this.player1.hp -= 1;}
+            this.player1.hp -= 1;
+            document.querySelector('.player1hp ').innerHTML -= 1;
+           
+        }
     }
     
     if(this.playerNumb === 2) {
@@ -183,7 +186,10 @@ CanRespaw() {
             if(this.player2.hp > 0) {
                 setTimeout( this.player2.spawnPlayer2() , 3000);
                 this.player2.deadOrAlive = 1;
-                this.player2.hp -= 1;}
+                this.player2.hp -= 1;
+                document.querySelector('.player2hp ').innerHTML -= 1;
+               
+            }
         }
     }6
     this.gameOver();
@@ -213,10 +219,11 @@ gameWon() {
 
 musicStop() {
     document.querySelector('.stop-music').addEventListener('click', () => {
-       if( this.music === 1) {
-           this.music = 0;
-       } 
-    })
+        if(this.music === 1) {
+        this.backMusic.pause();
+        
+       } })
+
    
 }
     

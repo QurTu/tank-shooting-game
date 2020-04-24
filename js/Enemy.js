@@ -214,7 +214,7 @@ import Bullet from './bullets.js';
                     if(crossWidth>crossHeight){
                         this.collision.push((crossWidth>(-crossHeight))?1:2);
                     }else{
-                        this.collision.push((crossWidth>-(crossHeight))? this.game.player1.x +16  : 4);
+                        this.collision.push((crossWidth>-(crossHeight))? this.game.player1.x +48  : 4);
                     }  
                  }
         return this.collision;
@@ -248,7 +248,7 @@ CollisionWithPlayer2() {
                 if(crossWidth>crossHeight){
                     this.collision.push((crossWidth>(-crossHeight))?1:2);
                 }else{
-                    this.collision.push((crossWidth>-(crossHeight))? this.game.player2.x +16  : 4);
+                    this.collision.push((crossWidth>-(crossHeight))? this.game.player2.x +48  : 4);
                 }  
              }
     return this.collision;

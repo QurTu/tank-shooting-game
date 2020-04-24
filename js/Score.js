@@ -6,7 +6,7 @@ export default class Score {
       
         this.renderScoreBoard();
         
-        this.addLisiner()
+       
     }
 
 renderScoreBoard() {
@@ -22,9 +22,7 @@ renderScoreBoard() {
  </div>
  <div class="score-player1">
   <h2>Songoku lifes:</h2>
-  <img  class = "hp" src="./img/hp.png" alt="">
-  <img  class = "hp" src="./img/hp.png" alt="">
-  <img  class = "hp" src="./img/hp.png" alt="">
+  <h2 class= "player1hp">3</h2>
 </div>
 </div>`;
     }
@@ -39,32 +37,20 @@ renderScoreBoard() {
  </div>
  <div class="score-player1">
   <h2>Songoku lifes:</h2>
-  <img  class = "hp" src="./img/hp.png" alt="">
-  <img  class = "hp" src="./img/hp.png" alt="">
-  <img  class = "hp" src="./img/hp.png" alt="">
+  <h2 class= "player1hp">3</h2>
+       
+
 </div>
 <div class="score-player2">
     <h2>Vegeta lifes:</h2>
-    <img  class = "hp" src="./img/hp.png" alt="">
-    <img  class = "hp" src="./img/hp.png" alt="">
-    <img  class = "hp" src="./img/hp.png" alt="">
+    <h2 class= "player2hp">3</h2>
   </div>
 </div>`; }
 document.querySelector('.game').insertAdjacentHTML('beforeend', this.HTML);
+document.querySelector('.score-player1').removeChild(document.querySelector('.score-player1').firstChild);
 
 }
 
-addLisiner() {
-    document.querySelector('.stop-music').addEventListener('click', () => {
-    if(this.game.music === 1) {
-        console.log('veikiu');
-        this.game.backMusic.pause();  
-          this.game.music = 0 ;
-    }
-
-   
-    })
-}
 
 
 }
