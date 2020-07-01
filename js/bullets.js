@@ -73,8 +73,9 @@ update() {
 
 bulletsCollWithMap() {
         if (this.x < 0 + this.buletsize || this.x > this.shooter.game.CanvasWidth   - this.buletsize  ||
-            this.y < 0 + this.buletsize || this.y > this.shooter.game.CanvasHight   - this.buletsize  ) {
+             this.y > 624|| this.y < 0 + this.buletsize  ) {
                 this.deadOrAlive = 0;
+                console.log('works');
                 this.shooter.ctx.clearRect(this.x, this.y, this.buletsize, this.buletsize ); 
             }
         }
